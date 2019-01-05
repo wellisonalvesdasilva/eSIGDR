@@ -76,42 +76,53 @@
 			<div class="sidebar-wrapper">
 				<div class="logo">
 					<a href="http://www.creative-tim.com" class="simple-text">
-						e-SIGAP (Auto Peças) </a>
+						e-SIGDR (RESTAURANTE)</a>
 				</div>
 				<ul class="nav">
-					<li><a class="nav-link" href="dashboard.html"> <i
+					<li><a class="nav-link" href="#"> <i
 							class="nc-icon nc-chart-pie-35"></i>
 							<p>Dashboard</p>
 					</a></li>
-					<li><a class="nav-link" href="./typography.html"> <i
-							class="nc-icon nc-paper-2"></i>
-							<p>Ordem de Serviço</p>
-					</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="./table.html"> <i class="nc-icon nc-circle-09"></i>
-							<p>Gerenciar Usuários</p>
-					</a></li>
-					<li><a class="nav-link" href="./icons.html"> <i
-							class="nc-icon nc-atom"></i>
-							<p>Gerenciar Peças</p>
+
+					<li class="nav-item"><a class="nav-link"
+						href="/SpringMVC/cardapio/montar"> <i class="nc-icon nc-notes"></i>
+							<p>Montar Cardápio</p>
 					</a></li>
 
-					<li><a class="nav-link" href="./icons.html"> <i
-							class="nc-icon nc-notes"></i>
-							<p>Gerenciar Carros</p>
+					<li><a class="nav-link" href="#"> <i
+							class="nc-icon nc-single-copy-04"></i>
+							<p>Lista de Cardápios</p>
 					</a></li>
-					<li><a class="nav-link" href="./maps.html"> <i
-							class="nc-icon nc-pin-3"></i>
-							<p>Maps</p>
+
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-cart-simple"></i>
+							<p>Nova Venda</p>
 					</a></li>
-					<li><a class="nav-link" href="./notifications.html"> <i
-							class="nc-icon nc-bell-55"></i>
-							<p>Notifications</p>
+
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-watch-time"></i>
+							<p>Agendar Retirada</p>
 					</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-single-02"></i>
+							<p>Gerenciar Clientes</p>
+					</a></li>
+
+					<li><a class="nav-link" href="#"> <i
+							class="nc-icon nc-apple"></i>
+							<p>Gerenciar Alimentos</p>
+					</a></li>
+
+					<li class="nav-item active"><a class="nav-link"
+						href="/SpringMVC/users"> <i class="nc-icon nc-circle-09"></i>
+							<p>Gerenciar Usuários</p>
+					</a></li>
+
 					<li class="nav-item active active-pro"><a
-						class="nav-link active" href="upgrade.html"> <i
-							class="nc-icon nc-alien-33"></i>
-							<p>SUPORTE TÉCNICO</p>
+						class="nav-link active" href="#"> <i
+							class="nc-icon nc-chart-bar-32"></i>
+							<p>Visualizar Relatórios</p>
 					</a></li>
 				</ul>
 			</div>
@@ -120,26 +131,15 @@
 			<!-- Navbar -->
 			<nav class="navbar navbar-expand-lg " color-on-scroll="500">
 				<div class=" container-fluid  ">
-
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navigation">
 						<ul class="nav navbar-nav mr-auto">
+							<li class="dropdown nav-item">
+							<li class="nav-item"><span class="no-icon">Versão
+									1.0.0.0</span> </a></li>
 
-							<li class="dropdown nav-item"><a href="#"
-								class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-									class="nc-icon nc-planet"></i> <span class="notification">5</span>
-									<span class="d-lg-none">Notificações</span>
-							</a>
-								<ul class="dropdown-menu">
-									<a class="dropdown-item" href="#">Notification 1</a>
-									<a class="dropdown-item" href="#">Notification 2</a>
-								</ul></li>
-							<li class="nav-item"><a href="#" class="nav-link"> <i
-									class="nc-icon nc-zoom-split"></i> <span class="d-lg-block">&nbsp;Pesquisar</span>
-							</a></li>
 						</ul>
 						<ul class="navbar-nav ml-auto">
-
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="http://example.com"
 								id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -165,26 +165,32 @@
 						<div class="col-md-12">
 							<div class="card strpied-tabled-with-hover">
 								<div class="card-header ">
-									<h4 class="card-title">Editar Usuário</h4>
+									<h4 class="card-title">Cadastrar Usuário</h4>
 								</div>
 								<div class="card-body">
 									<form:form method="POST" modelAttribute="obj"
 										cssClass='form-horizontal'>
 										<div class="row">
-											<input type="hidden" value='${obj.id}' name="id" /> <input
-												type="hidden" value='${obj.senha}' name="senha" />
-											<div class="col-md-5 pl-1">
+											<div class="col-md-4">
 												<div class="form-group">
 													<label>Nome</label> <input type="text" maxlength='40'
-														minlength='1' value='${obj.nome}' required id="nome"
-														name="nome" class="form-control" placeholder="Nome">
+														minlength='20' required id="nome" name="nome"
+														class="form-control" placeholder="Nome">
 												</div>
 											</div>
 											<div class="col-md-2">
 												<div class="form-group">
-													<label>Login</label> <input maxlength='20' minlength='1'
-														value='${obj.login}' type="text" id="login" required
+													<label>Login</label> <input
+														value='${(fn:escapeXml(param.login))}' maxlength='20'
+														minlength='20' type="text" id="login" required
 														name="login" class="form-control" placeholder="Login">
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<label>Senha</label> <input type="password" maxlength='8'
+														minlength='6' id="senha" required name="senha"
+														class="form-control" placeholder="Senha">
 												</div>
 											</div>
 											<div class="col-md-2 pl-1">
@@ -192,16 +198,17 @@
 													<label>Ativo</label> <select name="ativo" required
 														id="ativo" class="form-control">
 														<option value="">Selecione</option>
-														<option value="true">Sim</option>
-														<option value="false">Não</option>
+														<option value="1">Sim</option>
+														<option value="0">Não</option>
 													</select>
 												</div>
 											</div>
-											<div class="col-md-3 pl-1">
+											<div class="col-md-2 pl-1">
 												<div class="form-group">
 													<label>Email</label> <input id="email" maxlength='35'
-														minlength='1' value='${obj.email}' required name="email"
-														type="text" class="form-control" placeholder="E-mail">
+														minlength='20' value='${(fn:escapeXml(param.email))}'
+														required name="email" type="text" class="form-control"
+														placeholder="E-mail">
 												</div>
 											</div>
 
@@ -233,6 +240,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<footer class="footer">
@@ -243,7 +251,8 @@
 					<script>
 						document.write(new Date().getFullYear())
 					</script>
-					Aplicação JAVA WEB desenvolvida por<a href="#"> Wellison Silva.</a>
+					Desenvolvido por<a href="#"> Wellison Silva</a> em Spring MVC
+					(Java)
 				</p>
 			</nav>
 		</div>
@@ -251,9 +260,6 @@
 </body>
 
 <script>
-
-
-
 	function showNotification(from, align, msg) {
 		color = Math.floor((Math.random() * 4));
 
@@ -273,17 +279,42 @@
 
 	var sucessoMessage = "${message}";
 	if (sucessoMessage != "") {
-		showNotification('top', 'right', 'Registro editado com sucesso!');
+		showNotification('top', 'right', 'Registro cadastrado com sucesso!');
 	}
 
+	function dataTable() {
+		$('#example').DataTable({
+			columnDefs : [ {
+				"width" : "18%",
+				"targets" : 0,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "20%",
+				"targets" : 1,
+				className : 'mdl-data-table__cell--non-numeric'
 
-	$(document).ready(function() {		
-		
-		var valor = JSON.stringify(${obj.ativo});
-			valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
-		
-			})
-			
+			}, {
+				"width" : "15%",
+				"targets" : 2,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "15%",
+				"targets" : 3,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "15%",
+				"targets" : 4,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "3%",
+				"targets" : 5,
+				className : 'mdl-data-table__cell--non-numeric'
+
+			}, ],
+		});
+	};
+
+	dataTable();
 </script>
 </body>
 </html>

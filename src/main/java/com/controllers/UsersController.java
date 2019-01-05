@@ -27,13 +27,13 @@ public class UsersController {
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
 		model.addAttribute("lista", _userServices.list(objPesquisa));
-		return new ModelAndView("usuarios/consultar");
+		return new ModelAndView("usuario/consultar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })
 	public ModelAndView inserirAviso(ModelMap model) {
 		model.addAttribute("obj", new Users());
-		return new ModelAndView("usuarios/cadastrar");
+		return new ModelAndView("usuario/cadastrar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
@@ -46,7 +46,7 @@ public class UsersController {
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
 	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) {
 		model.addAttribute("obj", _userServices.getObj(cod));
-		return new ModelAndView("usuarios/editar");
+		return new ModelAndView("usuario/editar");
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })

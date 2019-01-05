@@ -85,51 +85,45 @@
 							<p>Dashboard</p>
 					</a></li>
 
-					<li><a class="nav-link" href="#"> <i
-							class="nc-icon nc-notes"></i>
+					<li class="nav-item"><a class="nav-link"
+						href="/SpringMVC/cardapio/montar"> <i class="nc-icon nc-notes"></i>
 							<p>Montar Cardápio</p>
 					</a></li>
 
 					<li><a class="nav-link" href="#"> <i
 							class="nc-icon nc-single-copy-04"></i>
-							<p>Consultar Cardápio</p>
+							<p>Lista de Cardápios</p>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#">
-							<i class="nc-icon nc-cart-simple"></i>
-							<p>Cadastrar Venda</p>
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-cart-simple"></i>
+							<p>Nova Venda</p>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#">
-							<i class="nc-icon nc-watch-time"></i>
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-watch-time"></i>
 							<p>Agendar Retirada</p>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#">
-							<i class="nc-icon nc-single-02"></i>
-							<p>Gerenciar Cliente</p>
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="nc-icon nc-single-02"></i>
+							<p>Gerenciar Clientes</p>
 					</a></li>
 
 					<li><a class="nav-link" href="#"> <i
 							class="nc-icon nc-apple"></i>
-							<p>Gerenciar Alimento</p>
+							<p>Gerenciar Alimentos</p>
 					</a></li>
 
 					<li class="nav-item active"><a class="nav-link"
 						href="/SpringMVC/users"> <i class="nc-icon nc-circle-09"></i>
-							<p>Gerenciar Usuário</p>
+							<p>Gerenciar Usuários</p>
 					</a></li>
-
-					<li class="nav-item"><a class="nav-link" href="#">
-							<i class="nc-icon nc-chart-bar-32"></i>
-							<p>Relatórios</p>
-					</a></li>
-
 
 					<li class="nav-item active active-pro"><a
-						class="nav-link active" href="upgrade.html"> <i
-							class="nc-icon nc-mobile"></i>
-							<p>SUPORTE TÉCNICO</p>
+						class="nav-link active" href="#"> <i
+							class="nc-icon nc-chart-bar-32"></i>
+							<p>Visualizar Relatórios</p>
 					</a></li>
 				</ul>
 			</div>
@@ -141,19 +135,12 @@
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navigation">
 						<ul class="nav navbar-nav mr-auto">
-							<li class="dropdown nav-item"><a href="#"
-								class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-									class="nc-icon nc-planet"></i> <span class="notification">5</span>
-									<span class="d-lg-none">Notificações</span>
-							</a>
-								<ul class="dropdown-menu">
-									<a class="dropdown-item" href="#">Notification 1</a>
-									<a class="dropdown-item" href="#">Notification 2</a>
-								</ul></li>
+							<li class="dropdown nav-item">
+							<li class="nav-item"><span class="no-icon">Versão
+									1.0.0.0</span> </a></li>
 
 						</ul>
 						<ul class="navbar-nav ml-auto">
-
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="http://example.com"
 								id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -370,8 +357,8 @@
 							<script>
 								document.write(new Date().getFullYear())
 							</script>
-							Aplicação JAVA WEB desenvolvida por<a href="#"> Wellison
-								Silva.</a>
+							Desenvolvido por<a href="#"> Wellison Silva</a> em Spring MVC
+							(Java)
 						</p>
 					</nav>
 				</div>
