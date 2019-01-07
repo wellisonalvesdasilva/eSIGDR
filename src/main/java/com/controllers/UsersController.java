@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.entities.Users;
+import com.entities.Usuario;
 import com.servicesapi.UsersService;
 
 @Controller
@@ -32,12 +32,12 @@ public class UsersController {
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })
 	public ModelAndView inserirAviso(ModelMap model) {
-		model.addAttribute("obj", new Users());
+		model.addAttribute("obj", new Usuario());
 		return new ModelAndView("usuario/cadastrar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
-	public String enviar(@ModelAttribute("obj") Users obj, RedirectAttributes ra, ModelMap model) throws Exception {
+	public String enviar(@ModelAttribute("obj") Usuario obj, RedirectAttributes ra, ModelMap model) throws Exception {
 		_userServices.saveOrUpdate(obj);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
 		return "redirect:/users/cadastrar";
@@ -50,7 +50,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })
-	public String updateAviso(@ModelAttribute("obj") Users objMerge, RedirectAttributes ra) throws Exception {
+	public String updateAviso(@ModelAttribute("obj") Usuario objMerge, RedirectAttributes ra) throws Exception {
 		_userServices.saveOrUpdate(objMerge);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
 		return "redirect:/users";

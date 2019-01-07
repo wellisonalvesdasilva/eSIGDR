@@ -3,17 +3,17 @@ package com.daoapi;
 import java.util.List;
 import java.util.Map;
 
-import com.entities.Users;
+import com.entities.Usuario;
 
 public interface UsersDao {
 
-	public List<Users> list(Map<String, String> objPesquisa);
+	public List<Usuario> list(Map<String, String> objPesquisa);
 
-	Users getObj(Integer id);
+	Usuario getObj(Integer id);
 
 	boolean deletar(Integer id);
 
-	void merge(Users users);
+	void merge(Usuario users);
 
-	void persist(Users users);
+	void persist(Usuario users);
 }

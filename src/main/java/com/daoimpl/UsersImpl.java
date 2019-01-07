@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daoapi.UsersDao;
-import com.entities.Users;
+import com.entities.Usuario;
 
 @Repository
 @Transactional
@@ -27,7 +27,7 @@ public class UsersImpl implements UsersDao {
 	SessionFactory session;
 
 	@SuppressWarnings("unchecked")
-	public List<Users> list(Map<String, String> objPesquisa) {
+	public List<Usuario> list(Map<String, String> objPesquisa) {
 
 		String sql = "";
 
@@ -79,7 +79,7 @@ public class UsersImpl implements UsersDao {
 	}
 
 	public boolean deletar(Integer id) {
-		Users ObjLocalizado = (Users) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
+		Usuario ObjLocalizado = (Usuario) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
 				.list().get(0);
 		if (ObjLocalizado != null) {
 			session.getCurrentSession().delete(ObjLocalizado);
@@ -88,8 +88,8 @@ public class UsersImpl implements UsersDao {
 		return false;
 	}
 
-	public Users getObj(Integer id) {
-		Users ObjLocalizado = (Users) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
+	public Usuario getObj(Integer id) {
+		Usuario ObjLocalizado = (Usuario) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
 				.list().get(0);
 		if (ObjLocalizado != null) {
 			return ObjLocalizado;
@@ -97,11 +97,11 @@ public class UsersImpl implements UsersDao {
 		return null;
 	}
 
-	public void merge(Users users) {
+	public void merge(Usuario users) {
 		session.getCurrentSession().update(users);
 	}
 
-	public void persist(Users users) {
+	public void persist(Usuario users) {
 		session.getCurrentSession().save(users);
 	}
 

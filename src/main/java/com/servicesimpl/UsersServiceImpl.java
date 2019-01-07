@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daoapi.UsersDao;
-import com.entities.Users;
+import com.entities.Usuario;
 import com.servicesapi.UsersService;
 
 @Service
@@ -23,11 +23,11 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersDao _userDao;
 
-	public List<Users> list(Map<String, String> objPesquisa) {
+	public List<Usuario> list(Map<String, String> objPesquisa) {
 		return _userDao.list(objPesquisa);
 	}
 
-	public boolean saveOrUpdate(Users users)
+	public boolean saveOrUpdate(Usuario users)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException {
 		users.setDataDeCadastro(Calendar.getInstance().getTime());
 
@@ -55,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
 
 	public void alterarSenha(Integer cod, String novaSenha) throws Exception {
 
-		Users objLocalizado = _userDao.getObj(cod);
+		Usuario objLocalizado = _userDao.getObj(cod);
 
 		if (objLocalizado != null) {
 

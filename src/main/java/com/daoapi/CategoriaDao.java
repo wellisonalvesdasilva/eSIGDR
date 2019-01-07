@@ -2,7 +2,7 @@ package com.daoapi;
 
 import java.util.List;
 import com.entities.Categoria;
-import com.entities.Users;
+import com.entities.Usuario;
 
 public interface CategoriaDao {
 

@@ -27,6 +27,9 @@ public class Cardapio {
 	@Column(name = "titulo")
 	private String titulo;
 
+	@Column(name = "valor")
+	private Double valor;
+
 	@Column(name = "descricao")
 	private String descricao;
 
@@ -47,6 +50,14 @@ public class Cardapio {
 	public void AdicionarFilhos(CardapioAlimento filho) {
 		alimentosCardapio.add(filho);
 		filho.setCardapio(this);
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
 	public Categoria getCategoria() {

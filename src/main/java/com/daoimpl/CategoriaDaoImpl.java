@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.daoapi.CategoriaDao;
 import com.entities.Categoria;
-import com.entities.Users;
+import com.entities.Usuario;
 
 @Repository
 @Transactional

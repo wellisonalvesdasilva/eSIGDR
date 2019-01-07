@@ -1,5 +1,7 @@
 package com.daoimpl;
 
+import java.util.List;
+import java.util.Map;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,12 @@ public class CardapioDaoImpl implements CardapioDao {
 
 	public void persist(Cardapio obj) {
 		session.getCurrentSession().save(obj);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Cardapio> list(Map<String, String> objPesquisa) {
+
+		return session.getCurrentSession().createQuery("from Cardapio as c inner join fetch c.categoria").list();
+
 	}
 }

@@ -10,7 +10,7 @@ public class DtoMontarCardapio {
 	private String titulo;
 	private String descricao;
 	private Date data;
-	private String valor;
+	private Double valor;
 	private List<Integer> listAlimentos;
 
 	public Integer getIdCategoria() {
@@ -53,20 +53,20 @@ public class DtoMontarCardapio {
 		this.data = data;
 	}
 
-	public String getValor() {
-		return valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
-
 	public List<Integer> getListAlimentos() {
 		return listAlimentos;
 	}
 
 	public void setListAlimentos(List<Integer> listAlimentos) {
 		this.listAlimentos = listAlimentos;
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
 }
