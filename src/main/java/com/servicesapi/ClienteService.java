@@ -5,13 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
-import com.entities.Agendamento;
-import com.entities.Agendamento;
+import com.entities.Cliente;
+import com.entities.Usuario;
 
-public interface AgendamentoService {
-	List<Agendamento> list(Map<String, String> objPesquisa);
+public interface ClienteService {
+	public List<Cliente> list(Map<String, String> objPesquisa);
 
-	public boolean saveOrUpdate(Agendamento agendamento)
+	public boolean saveOrUpdate(Cliente users)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
 
 	Boolean deletar(Integer cod);

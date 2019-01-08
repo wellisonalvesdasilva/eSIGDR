@@ -11,13 +11,14 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
 
 <jsp:include page="../template/cabecalho.jsp" />
+
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Gerenciamento de Agendamentos</h4>
+						<h4 class="card-title">Gerenciamento de Clientes</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>
@@ -69,7 +70,7 @@
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
-										<i class="fa fa-search"></i> Pesquisar
+										<i class="nc-icon nc-zoom-split"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos" href='usuario'
@@ -92,7 +93,7 @@
 							<table id="example" class="mdl-data-table" style="width: 100%">
 								<thead>
 									<tr>
-										<th class="text-center">ID</th>
+										<th class="text-center">CÓDIGO</th>
 										<th class="text-center">NOME</th>
 										<th class="text-center">LOGIN</th>
 										<th class="text-center">EMAIL</th>

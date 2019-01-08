@@ -18,7 +18,7 @@
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Gerenciar Usuários</h4>
+						<h4 class="card-title">Gerenciamento de Usuários</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>

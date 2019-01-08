@@ -24,7 +24,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService _usuarioService;
 
-	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/consultar",method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
 		model.addAttribute("lista", _usuarioService.list(objPesquisa));
 		return new ModelAndView("usuario/consultar");

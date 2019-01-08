@@ -13,53 +13,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.entities.Alimento;
-import com.servicesapi.AlimentoService;
+
+import com.entities.Cliente;
+import com.servicesapi.ClienteService;
 
 @Controller
-@RequestMapping("alimento")
-public class AlimentoController {
+@RequestMapping("cliente")
+public class ClienteController {
 
 	@Autowired
-	AlimentoService _alimentoService;
+	ClienteService _clienteService;
 
 	@RequestMapping(value = "/consultar", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
-		model.addAttribute("lista", _alimentoService.list(objPesquisa));
-		return new ModelAndView("alimento/consultar");
+		model.addAttribute("lista", _clienteService.list(objPesquisa));
+		return new ModelAndView("cliente/consultar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })
-	public ModelAndView inserirAlimento(ModelMap model) {
-		model.addAttribute("obj", new Alimento());
-		return new ModelAndView("alimento/cadastrar");
+	public ModelAndView inserirAviso(ModelMap model) {
+		model.addAttribute("obj", new Cliente());
+		return new ModelAndView("cliente/cadastrar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
-	public String enviar(@ModelAttribute("obj") Alimento obj, RedirectAttributes ra, ModelMap model) throws Exception {
-		_alimentoService.saveOrUpdate(obj);
+	public String enviar(@ModelAttribute("obj") Cliente obj, RedirectAttributes ra, ModelMap model) throws Exception {
+		_clienteService.saveOrUpdate(obj);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/alimento/cadastrar";
+		return "redirect:/cliente/cadastrar";
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
 	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) {
-		model.addAttribute("obj", _alimentoService.getObj(cod));
-		return new ModelAndView("alimento/editar");
+		model.addAttribute("obj", _clienteService.getObj(cod));
+		return new ModelAndView("cliente/editar");
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })
-	public String updateAviso(@ModelAttribute("obj") Alimento objMerge, RedirectAttributes ra) throws Exception {
-		_alimentoService.saveOrUpdate(objMerge);
+	public String updateAviso(@ModelAttribute("obj") Cliente objMerge, RedirectAttributes ra) throws Exception {
+		_clienteService.saveOrUpdate(objMerge);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/alimento";
+		return "redirect:/cliente";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody void excluir(@PathVariable("cod") Integer cod) {
 
 		try {
-			_alimentoService.deletar(cod);
+			_clienteService.deletar(cod);
 
 		} catch (Exception e) {
 			return;

@@ -74,7 +74,7 @@
 						e-SIGDR (RESTAURANTE)</a>
 				</div>
 				<ul class="nav">
-					<li><a class="nav-link" href="#"> <i
+					<li><a class="nav-link" href="/SpringMVC/dashboard"> <i
 							class="nc-icon nc-chart-pie-35"></i>
 							<p>Dashboard</p>
 					</a></li>
@@ -95,23 +95,28 @@
 							<p>Gerenciar Vendas</p>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<li class="nav-item"><a class="nav-link"
+						href="/SpringMVC/agendamento/consultar"> <i
 							class="nc-icon nc-delivery-fast"></i>
 							<p>Gerenciar Pedidos</p>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<li class="nav-item"><a class="nav-link"
+						href="/SpringMVC/cliente/consultar"> <i
 							class="nc-icon nc-single-02"></i>
 							<p>Gerenciar Clientes</p>
 					</a></li>
 
-					<li><a class="nav-link" href="#"> <i
-							class="nc-icon nc-apple"></i>
+					<li><a class="nav-link" href="/SpringMVC/alimento/consultar">
+							<i class="nc-icon nc-apple"></i>
 							<p>Gerenciar Alimentos</p>
 					</a></li>
 
-					<li class="nav-item active"><a class="nav-link"
-						href="/SpringMVC/usuario"> <i class="nc-icon nc-circle-09"></i>
+
+
+					<li class="nav-item <%--active --%>"><a class="nav-link"
+						href="/SpringMVC/usuario/consultar"> <i
+							class="nc-icon nc-circle-09"></i>
 							<p>Gerenciar Usuários</p>
 					</a></li>
 

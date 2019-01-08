@@ -43,7 +43,7 @@ public class CardapioController {
 	public ModelAndView consultar(ModelMap model) {
 		model.addAttribute("obj", new DtoMontarCardapio());
 		model.addAttribute("listCategorias", _categoriaService.getCategorias());
-		model.addAttribute("alimento", _alimentoService.getAlimentos());
+		model.addAttribute("alimento", _alimentoService.list(null));
 		return new ModelAndView("cardapio/montar");
 	}
 

@@ -6,18 +6,19 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.daoapi.AlimentoDao;
-import com.entities.Alimento;
+
+import com.daoapi.ClienteDao;
+import com.entities.Cliente;
 
 @Repository
 @Transactional
-public class AlimentoDaoImpl implements AlimentoDao {
+public class ClienteDaoImpl implements ClienteDao {
 
 	@Autowired
 	SessionFactory session;
 
 	@SuppressWarnings("unchecked")
-	public List<Alimento> list(Map<String, String> objPesquisa) {
+	public List<Cliente> list(Map<String, String> objPesquisa) {
 
 		String sql = "";
 
@@ -62,15 +63,15 @@ public class AlimentoDaoImpl implements AlimentoDao {
 		}
 
 		if (sql != "") {
-			return session.getCurrentSession().createQuery("from Alimento as u" + " " + sql).list();
+			return session.getCurrentSession().createQuery("from Cliente as u" + " " + sql).list();
 		} else {
-			return session.getCurrentSession().createQuery("from Alimento").list();
+			return session.getCurrentSession().createQuery("from Cliente").list();
 		}
 	}
 
 	public boolean deletar(Integer id) {
-		Alimento ObjLocalizado = (Alimento) session.getCurrentSession()
-				.createQuery("from Alimento as u where u.id = " + id).list().get(0);
+		Cliente ObjLocalizado = (Cliente) session.getCurrentSession()
+				.createQuery("from Cliente as u where u.id = " + id).list().get(0);
 		if (ObjLocalizado != null) {
 			session.getCurrentSession().delete(ObjLocalizado);
 			return true;
@@ -78,21 +79,21 @@ public class AlimentoDaoImpl implements AlimentoDao {
 		return false;
 	}
 
-	public Alimento getObj(Integer id) {
-		Alimento ObjLocalizado = (Alimento) session.getCurrentSession()
-				.createQuery("from Alimento as u where u.id = " + id).list().get(0);
+	public Cliente getObj(Integer id) {
+		Cliente ObjLocalizado = (Cliente) session.getCurrentSession()
+				.createQuery("from Cliente as u where u.id = " + id).list().get(0);
 		if (ObjLocalizado != null) {
 			return ObjLocalizado;
 		}
 		return null;
 	}
 
-	public void merge(Alimento alimento) {
-		session.getCurrentSession().update(alimento);
+	public void merge(Cliente users) {
+		session.getCurrentSession().update(users);
 	}
 
-	public void persist(Alimento alimento) {
-		session.getCurrentSession().save(alimento);
+	public void persist(Cliente users) {
+		session.getCurrentSession().save(users);
 	}
 
 }
