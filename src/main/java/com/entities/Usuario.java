@@ -1,13 +1,20 @@
 package com.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "usuario")
@@ -27,6 +34,7 @@ public class Usuario {
 	private String login;
 
 	@Column(name = "dth_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeCadastro;
 
 	@Column(name = "ativo")
@@ -34,6 +42,22 @@ public class Usuario {
 
 	@Column(name = "senha")
 	private String senha;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Agendamento> agendamentos;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Venda> vendas;
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
 
 	public String getSenha() {
 		return senha;
@@ -89,6 +113,14 @@ public class Usuario {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 }

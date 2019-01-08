@@ -23,6 +23,30 @@ public class Status {
 	@Column(name = "titulo")
 	private String titulo;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "status", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Venda> vendas;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "status", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Agendamento> agendamentos;
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
+
 	public Integer getId() {
 		return id;
 	}

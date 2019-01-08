@@ -15,18 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.entities.Usuario;
-import com.servicesapi.UsersService;
+import com.servicesapi.UsuarioService;
 
 @Controller
-@RequestMapping("users")
-public class UsersController {
+@RequestMapping("usuario")
+public class UsuarioController {
 
 	@Autowired
-	UsersService _userServices;
+	UsuarioService _usuarioService;
 
 	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
-		model.addAttribute("lista", _userServices.list(objPesquisa));
+		model.addAttribute("lista", _usuarioService.list(objPesquisa));
 		return new ModelAndView("usuario/consultar");
 	}
 
@@ -38,29 +38,29 @@ public class UsersController {
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
 	public String enviar(@ModelAttribute("obj") Usuario obj, RedirectAttributes ra, ModelMap model) throws Exception {
-		_userServices.saveOrUpdate(obj);
+		_usuarioService.saveOrUpdate(obj);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/users/cadastrar";
+		return "redirect:/usuario/cadastrar";
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
 	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) {
-		model.addAttribute("obj", _userServices.getObj(cod));
+		model.addAttribute("obj", _usuarioService.getObj(cod));
 		return new ModelAndView("usuario/editar");
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })
 	public String updateAviso(@ModelAttribute("obj") Usuario objMerge, RedirectAttributes ra) throws Exception {
-		_userServices.saveOrUpdate(objMerge);
+		_usuarioService.saveOrUpdate(objMerge);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/users";
+		return "redirect:/usuario";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody void excluir(@PathVariable("cod") Integer cod) {
 
 		try {
-			_userServices.deletar(cod);
+			_usuarioService.deletar(cod);
 
 		} catch (Exception e) {
 			return;
@@ -72,7 +72,7 @@ public class UsersController {
 	public @ResponseBody String alterarSenhaDoUsuario(@PathVariable("cod") Integer cod, @RequestBody String novaSenha) {
 
 		try {
-			_userServices.alterarSenha(cod, novaSenha);
+			_usuarioService.alterarSenha(cod, novaSenha);
 			return "Senha alterada com sucesso!";
 
 		} catch (Exception e) {

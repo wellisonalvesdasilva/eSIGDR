@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.entities.Usuario;
 
-public interface UsersService {
+public interface UsuarioService {
 	public List<Usuario> list(Map<String, String> objPesquisa);
 
 	public boolean saveOrUpdate(Usuario users) throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;

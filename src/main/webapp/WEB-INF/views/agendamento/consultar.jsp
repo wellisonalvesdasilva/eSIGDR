@@ -10,6 +10,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
 
+
+
+
 <jsp:include page="../template/cabecalho.jsp" />
 <div class="content">
 	<div class="container-fluid">
@@ -61,7 +64,7 @@
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
-										<i class="nc-icon nc-zoom-split"></i> Pesquisar
+										<i class="fa fa-search"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos" href='users'
@@ -69,7 +72,7 @@
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='/SpringMVC/cardapio/montar' type="submit"
+										href='users/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
 										class="nc-icon nc-simple-add"></i> Novo Cardápio
 									</a>
@@ -103,27 +106,32 @@
 											<td class="text-center">${it.categoria.titulo}</td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='#' type="button" class="btn btn-success btn-fill">
-													<i class="nc-icon nc-settings-tool-66"></i>
+												href='users/editar/${it.id}' type="button"
+												class="btn btn-success btn-fill"> <i
+													class="nc-icon nc-settings-tool-66"></i>
 											</a>
 												<button rel="tooltip" name="btnSubmit"
 													data-original-title="Visualizar Detalhes do Prato"
-													onclick="#" type="button" class="btn btn-info btn-fill">
+													onclick="resetarSenha(${it.id})" type="button"
+													class="btn btn-info btn-fill">
 													<i class="nc-icon nc-zoom-split"></i>
 												</button>
 												<button rel="tooltip" name="btnSubmit"
 													data-original-title="Visualizar Alimentos Vìnculados"
-													onclick="#" type="button" class="btn btn-info btn-fill">
+													onclick="resetarSenha(${it.id})" type="button"
+													class="btn btn-info btn-fill">
 													<i class="nc-icon nc-apple"></i>
 												</button>
 												<button rel="tooltip" name="btnSubmit"
 													data-original-title="Visualizar Vendas Vínculadas"
-													onclick="#" type="button" class="btn btn-info btn-fill">
+													onclick="resetarSenha(${it.id})" type="button"
+													class="btn btn-info btn-fill">
 													<i class="nc-icon nc-cart-simple"></i>
 												</button>
 												<button rel="tooltip" name="btnSubmit"
-													data-original-title="Excluir" id="btnSubmit" onclick="#"
-													type="button" class="btn btn-danger btn-fill">
+													data-original-title="Excluir" id="btnSubmit"
+													onclick="excluirFuncionario(${it.id})" type="button"
+													class="btn btn-danger btn-fill">
 													<i class="nc-icon nc-simple-remove"></i>
 												</button></td>
 										</tr>

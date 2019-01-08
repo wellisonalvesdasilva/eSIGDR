@@ -1,13 +1,20 @@
 package com.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -33,10 +40,24 @@ public class Cliente {
 	private String telefoneRecado;
 
 	@Column(name = "dth_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeCadastro;
 
 	@Column(name = "dth_ultima_compra")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltimaCompra;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Venda> vendas;
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
 
 	public String getCpf() {
 		return cpf;

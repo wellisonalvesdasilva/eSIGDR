@@ -11,14 +11,13 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
 
 <jsp:include page="../template/cabecalho.jsp" />
-
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Gerenciar Usuários</h4>
+						<h4 class="card-title">Gerenciar Alimentos</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>
@@ -70,7 +69,7 @@
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
-										<i class="nc-icon nc-zoom-split"></i> Pesquisar
+										<i class="fa fa-search"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos" href='usuario'

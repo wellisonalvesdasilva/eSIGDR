@@ -1,27 +1,17 @@
 package com.daoimpl;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.Query;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.daoapi.UsersDao;
+import com.daoapi.UsuarioDao;
 import com.entities.Usuario;
 
 @Repository
 @Transactional
-public class UsersImpl implements UsersDao {
-
-	// private EntityManager entityManager = HibernateUtil.geEntityManager();
+public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Autowired
 	SessionFactory session;
@@ -72,15 +62,15 @@ public class UsersImpl implements UsersDao {
 		}
 
 		if (sql != "") {
-			return session.getCurrentSession().createQuery("from Users as u" + " " + sql).list();
+			return session.getCurrentSession().createQuery("from Usuario as u" + " " + sql).list();
 		} else {
-			return session.getCurrentSession().createQuery("from Users").list();
+			return session.getCurrentSession().createQuery("from Usuario").list();
 		}
 	}
 
 	public boolean deletar(Integer id) {
-		Usuario ObjLocalizado = (Usuario) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
-				.list().get(0);
+		Usuario ObjLocalizado = (Usuario) session.getCurrentSession()
+				.createQuery("from Usuario as u where u.id = " + id).list().get(0);
 		if (ObjLocalizado != null) {
 			session.getCurrentSession().delete(ObjLocalizado);
 			return true;
@@ -89,8 +79,8 @@ public class UsersImpl implements UsersDao {
 	}
 
 	public Usuario getObj(Integer id) {
-		Usuario ObjLocalizado = (Usuario) session.getCurrentSession().createQuery("from Users as u where u.id = " + id)
-				.list().get(0);
+		Usuario ObjLocalizado = (Usuario) session.getCurrentSession()
+				.createQuery("from Usuario as u where u.id = " + id).list().get(0);
 		if (ObjLocalizado != null) {
 			return ObjLocalizado;
 		}

@@ -17,7 +17,7 @@
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Gerenciamento de Cardápios</h4>
+						<h4 class="card-title">Gerenciar Vendas</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>
@@ -64,14 +64,15 @@
 										<i class="nc-icon nc-zoom-split"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
-										data-original-title="Limpar Campos" href='users'
-										id="btnLimpar" type="submit" class="btn btn-dafault btn-fill">
-										<i class="nc-icon nc-refresh-02"></i> Limpar
+										data-original-title="Limpar Campos"
+										href='/SpringMVC/venda/consultar' id="btnLimpar" type="submit"
+										class="btn btn-dafault btn-fill"> <i
+										class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='/SpringMVC/cardapio/montar' type="submit"
+										href='/SpringMVC/venda/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
-										class="nc-icon nc-simple-add"></i> Novo Cardápio
+										class="nc-icon nc-cart-simple"></i> Nova Venda
 									</a>
 								</div>
 								<div class="col-md-7"></div>

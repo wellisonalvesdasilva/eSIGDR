@@ -13,15 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.daoapi.UsersDao;
+import com.daoapi.UsuarioDao;
 import com.entities.Usuario;
-import com.servicesapi.UsersService;
+import com.servicesapi.UsuarioService;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
-	UsersDao _userDao;
+	UsuarioDao _userDao;
 
 	public List<Usuario> list(Map<String, String> objPesquisa) {
 		return _userDao.list(objPesquisa);

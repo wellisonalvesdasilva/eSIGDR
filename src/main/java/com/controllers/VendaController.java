@@ -15,43 +15,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.dtos.DtoCadastrarVenda;
 import com.dtos.DtoMontarCardapio;
 import com.servicesapi.AlimentoService;
 import com.servicesapi.CardapioService;
 import com.servicesapi.CategoriaService;
+import com.servicesapi.VendaService;
 
 @Controller
-@RequestMapping("cardapio")
-public class CardapioController {
+@RequestMapping("venda")
+public class VendaController {
 
 	@Autowired
-	private CategoriaService _categoriaService;
+	private VendaService _vendaService;
 
-	@Autowired
-	private AlimentoService _alimentoService;
-
-	@Autowired
-	private CardapioService _cardapioService;
+	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })
+	public ModelAndView consultar(ModelMap model) {
+		model.addAttribute("obj", new DtoCadastrarVenda());
+		// model.addAttribute("listCategorias",
+		// _categoriaService.getCategorias());
+		// model.addAttribute("alimento", _alimentoService.getAlimentos());
+		return new ModelAndView("venda/cadastrar");
+	}
 
 	@RequestMapping(value = "/consultar", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
-		model.addAttribute("lista", _cardapioService.list(objPesquisa));
-		return new ModelAndView("cardapio/consultar");
-	}
-
-	@RequestMapping(value = "/montar", method = { RequestMethod.GET })
-	public ModelAndView consultar(ModelMap model) {
-		model.addAttribute("obj", new DtoMontarCardapio());
-		model.addAttribute("listCategorias", _categoriaService.getCategorias());
-		model.addAttribute("alimento", _alimentoService.getAlimentos());
-		return new ModelAndView("cardapio/montar");
-	}
-
-	@RequestMapping(value = "/montar", method = RequestMethod.POST)
-	public String enviar(@ModelAttribute("obj") DtoMontarCardapio obj, RedirectAttributes ra, ModelMap model) {
-		_cardapioService.criarCardapio(obj);
-		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/cardapio/montar";
+		// model.addAttribute("lista", _cardapioService.list(objPesquisa));
+		return new ModelAndView("venda/consultar");
 	}
 
 	@InitBinder
@@ -60,4 +51,13 @@ public class CardapioController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
+	/*
+	 * @RequestMapping(value = "/montar", method = RequestMethod.POST) public
+	 * String enviar(@ModelAttribute("obj") DtoMontarCardapio obj,
+	 * RedirectAttributes ra, ModelMap model) {
+	 * _cardapioService.criarCardapio(obj); ra.addFlashAttribute("message",
+	 * "Registro cadastrado com sucesso!"); return "redirect:/cardapio"; }
+	 * 
+	 * 
+	 */
 }

@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/daoimpl/AgendamentoDaoImpl.java=UTF-8
 encoding//src/main/java/com/daoimpl/AlimentoDaoImpl.java=UTF-8
 encoding//src/main/java/com/daoimpl/CardapioDaoImpl.java=UTF-8
 encoding//src/main/java/com/daoimpl/CategoriaDaoImpl.java=UTF-8
-encoding//src/main/java/com/daoimpl/UsersImpl.java=UTF-8
+encoding//src/main/java/com/daoimpl/UsuarioDaoImpl.java=UTF-8
+encoding//src/main/java/com/daoimpl/VendaDaoImpl.java=UTF-8

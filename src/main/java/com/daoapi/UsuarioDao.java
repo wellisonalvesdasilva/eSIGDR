@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.entities.Usuario;
 
-public interface UsersDao {
+public interface UsuarioDao {
 
 	public List<Usuario> list(Map<String, String> objPesquisa);
 

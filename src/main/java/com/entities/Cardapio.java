@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -34,6 +38,7 @@ public class Cardapio {
 	private String descricao;
 
 	@Column(name = "data")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
 	@ManyToOne
@@ -44,8 +49,20 @@ public class Cardapio {
 	private Integer categoria_id;
 
 	@JsonIgnore
+	@OneToMany(mappedBy = "cardapio", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Venda> vendas;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "cardapio", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CardapioAlimento> alimentosCardapio = new ArrayList<CardapioAlimento>();
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
 
 	public void AdicionarFilhos(CardapioAlimento filho) {
 		alimentosCardapio.add(filho);

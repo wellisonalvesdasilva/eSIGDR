@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "venda")
@@ -23,29 +28,26 @@ public class Venda {
 	private Integer id;
 
 	@Column(name = "dth_venda")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDaVenda;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", insertable = false, updatable = false)
 	private Cliente cliente;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "venda", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<Agendamento> agendamentos;
+
 	@Column(name = "cliente_id")
 	private Integer cliente_id;
 
-	@ManyToOne
-	@JoinColumn(name = "agendamento_id", insertable = false, updatable = false)
-	private Agendamento agendamento;
-
-	// Operador de caixa
 	@Column(name = "usuario_id")
 	private Integer usuario_id;
 
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", insertable = false, updatable = false)
 	private Usuario usuario;
-
-	@Column(name = "agendamento_id")
-	private Integer agendamento_id;
 
 	@ManyToOne
 	@JoinColumn(name = "cardapio_id", insertable = false, updatable = false)
@@ -99,14 +101,6 @@ public class Venda {
 		this.cliente_id = cliente_id;
 	}
 
-	public Agendamento getAgendamento() {
-		return agendamento;
-	}
-
-	public void setAgendamento(Agendamento agendamento) {
-		this.agendamento = agendamento;
-	}
-
 	public Integer getUsuario_id() {
 		return usuario_id;
 	}
@@ -121,14 +115,6 @@ public class Venda {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Integer getAgendamento_id() {
-		return agendamento_id;
-	}
-
-	public void setAgendamento_id(Integer agendamento_id) {
-		this.agendamento_id = agendamento_id;
 	}
 
 	public Cardapio getCardapio() {
@@ -177,6 +163,14 @@ public class Venda {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 }

@@ -9,6 +9,7 @@
 		<mapping class="com.entities.Alimento" />
 		<mapping class="com.entities.Cardapio" />
 		<mapping class="com.entities.CardapioAlimento" />
+		<mapping class="com.entities.CardapioVenda" />
 		<mapping class="com.entities.Categoria" />
 		<mapping class="com.entities.Cliente" />
 		<mapping class="com.entities.Status" />
