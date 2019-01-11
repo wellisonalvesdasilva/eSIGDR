@@ -21,43 +21,14 @@
 					<div class="card-body">
 						<form:form method="POST" modelAttribute="obj">
 							<div class="row">
-								<div class="col-md-2 pr-1">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label>Data</label> <input autocomplete="off"
 											placeholder="DD/MM/AAAA" id="data" name="data" type="text"
 											class="form-control dataMask" placeholder="Código">
 									</div>
 								</div>
-								<div class="col-lg-3 pl-1">
-									<div class="form-group">
-										<label>Categoria</label> <select id="idCategoria"
-											name="idCategoria" class="form-control">
-											<option value="">Selecione um valor</option>
-											<c:forEach var="it" items='${listCategorias}'>
-												<option value="${it.id}"
-													<c:choose><c:when test="${idCategoria == it.id}">selected</c:when></c:choose>>${it.titulo}</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-7 pl-1">
-									<div class="form-group">
-										<label>Titulo</label> <input type="text" maxlength="40"
-											minlength="1" id="titulo" name="titulo" class="form-control"
-											placeholder="Nome">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-10">
-									<div class="form-group">
-										<label for="comment">Descrição:</label>
-										<textarea class="form-control" id="descricao" name="descricao"
-											rows="2" placeholder="Informe os Detalhes" maxlength="1000"
-											name="texto"></textarea>
-									</div>
-								</div>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<div class="form-group">
 										<label>Valor (R$)</label> <input autocomplete="off"
 											placeholder="Valor" id="valor" name="valor" type="text"
@@ -65,16 +36,22 @@
 											placeholder="Informe o valor R$">
 									</div>
 								</div>
+								<div class="col-md-7">
+									<div class="form-group">
+										<label>Titulo</label> <input type="text" maxlength="40"
+											minlength="1" id="titulo" name="titulo" class="form-control"
+											placeholder="Titulo">
+									</div>
+								</div>
 							</div>
-
 							<div class="row">
-								<div id="divAlimentos" class="col-lg-12">
-									<label>Selecione os alimento(s):</label> <input
-										id="txtAlimento" onkeyup="filtrarAlimentos()" type="text"
-										placeholder="Faça uma pesquisa" class="form-control input-sm">
+								<div id="divAlimentos" class="col-lg-4">
+									<label>Selecione os Alimentos Básicos</label> <input
+										id="txtAlimento" onkeyup="filtrarAlimentos(1)" type="text"
+										placeholder="Pesquise" class="form-control input-sm">
 									<div
 										style="min-height: 0px; max-height: 125px; border: 1px solid #ddd; overflow-y: scroll;">
-										<c:forEach var="it" items='${alimento}'>
+										<c:forEach var="it" items='${alimento.basicos}'>
 											<div class="alimentosToShow" name="${it.titulo}">
 												<spam style='font-family:helvetica;'>
 												&nbsp;&nbsp;&nbsp;<input type="checkbox" id="listAlimentos"
@@ -84,8 +61,58 @@
 										</c:forEach>
 									</div>
 									<div class="text-right">
-										<input type="checkbox" onclick="selecionarTodosAlimentos()"
-											id="selectAll" /> <span>Selecionar todos</span>
+										<input type="checkbox" onclick="selecionarTodosAlimentos(1)"
+											id="selectAllAlimentos" /> <span>Todos</span>
+									</div>
+								</div>
+								<div id="divAlimentos" class="col-lg-4">
+									<label>Selecione as Carnes</label> <input id="txtCarne"
+										onkeyup="filtrarAlimentos(2)" type="text"
+										placeholder="Pesquise" class="form-control input-sm">
+									<div
+										style="min-height: 0px; max-height: 125px; border: 1px solid #ddd; overflow-y: scroll;">
+										<c:forEach var="it" items='${alimento.carnes}'>
+											<div class="carnesToShow" name="${it.titulo}">
+												<spam style='font-family:helvetica;'>
+												&nbsp;&nbsp;&nbsp;<input type="checkbox" id="listCarnes"
+													name="listCarnes" value="${it.id}" /> <span
+													class="cursor-hand ng-binding">${it.titulo}</span></spam>
+											</div>
+										</c:forEach>
+									</div>
+									<div class="text-right">
+										<input type="checkbox" onclick="selecionarTodosAlimentos(2)"
+											id="selectAllCarnes" /> <span>Todos</span>
+									</div>
+								</div>
+								<div id="divAlimentos" class="col-lg-4">
+									<label>Selecione as Saladas</label> <input id="txtSalada"
+										onkeyup="filtrarAlimentos(3)" type="text"
+										placeholder="Pesquise" class="form-control input-sm">
+									<div
+										style="min-height: 0px; max-height: 125px; border: 1px solid #ddd; overflow-y: scroll;">
+										<c:forEach var="it" items='${alimento.verduras}'>
+											<div class="saladasToShow" name="${it.titulo}">
+												<spam style='font-family:helvetica;'>
+												&nbsp;&nbsp;&nbsp;<input type="checkbox" id="listSaladas"
+													name="listSaladas" value="${it.id}" /> <span
+													class="cursor-hand ng-binding">${it.titulo}</span></spam>
+											</div>
+										</c:forEach>
+									</div>
+									<div class="text-right">
+										<input type="checkbox" onclick="selecionarTodosAlimentos(3)"
+											id="selectAllSaladas" /> <span>Todos</span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Descrição</label>
+										<textarea rows="4" maxlength="40" minlength="1" id="descricao"
+											name="descricao" class="form-control"
+											placeholder="Descrição do cardápio" cols="50"></textarea>
 									</div>
 								</div>
 							</div>
@@ -106,30 +133,38 @@
 								</div>
 								<div class="col-md-7"></div>
 							</div>
-							<div class="clearfix"></div>
+						</form:form>
+						<div class="clearfix"></div>
 					</div>
 				</div>
-				</form:form>
 			</div>
 		</div>
 	</div>
 </div>
-
-</div>
-</div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-	function selecionarTodosAlimentos() {
-		var lista = document.querySelectorAll('input[name=listAlimentos]');
-		var empty = [].filter.call(lista, function(el) {
-			el.checked = document.getElementById('selectAll').checked;
-		});
-	}
+	var idLista = '';
+	var idTextoParaPesquisar = '';
 
-	function filtrarAlimentos() {
-		var lista = document.getElementsByClassName('alimentosToShow');
-		var textoParaPesquisar = document.getElementById('txtAlimento').value;
+	function filtrarAlimentos(param) {
+
+		if (param == 1) {
+			idLista = 'alimentosToShow';
+			idTextoParaPesquisar = 'txtAlimento';
+		}
+		if (param == 2) {
+			idLista = 'carnesToShow';
+			idTextoParaPesquisar = 'txtCarne';
+		}
+		if (param == 3) {
+			idLista = 'saladasToShow';
+			idTextoParaPesquisar = 'txtSalada'
+		}
+
+		var lista = document.getElementsByClassName(idLista);
+		var textoParaPesquisar = document.getElementById(idTextoParaPesquisar).value;
 
 		Array.prototype.forEach.call(lista, function(el) {
 
@@ -142,9 +177,29 @@
 				el.style.position = 'absolute';
 			}
 		});
+	}
 
-		//var listaParaExibir = document.getElementsByName('[name^='+ textoParaPesquisar +']');
-		//.style.visibility = 'visible';
+	var tipo = '';
+	var checkedById = '';
+	function selecionarTodosAlimentos(param) {
+
+		if (param == 1) {
+			tipo = 'listAlimentos';
+			checkedById = 'selectAllAlimentos';
+		}
+		if (param == 2) {
+			tipo = 'listCarnes';
+			checkedById = 'selectAllCarnes';
+		}
+		if (param == 3) {
+			tipo = 'listSaladas';
+			checkedById = 'selectAllSaladas'
+		}
+
+		var lista = document.querySelectorAll('input[name=' + tipo + ']');
+		var empty = [].filter.call(lista, function(el) {
+			el.checked = document.getElementById(checkedById).checked;
+		});
 	}
 
 	// DatePicker
@@ -199,6 +254,28 @@
 			return false;
 		}
 		return true;
+	}
+
+	function showNotification(from, align, msg) {
+		color = Math.floor((Math.random() * 4));
+
+		$.notify({
+			icon : "nc-icon nc-tap-01",
+			message : msg
+
+		}, {
+			type : type[color],
+			timer : 2500,
+			placement : {
+				from : from,
+				align : align
+			}
+		});
+	}
+
+	var sucessoMessage = "${message}";
+	if (sucessoMessage != "") {
+		showNotification('top', 'right', 'Registro cadastrado com sucesso!');
 	}
 </script>
 </body>

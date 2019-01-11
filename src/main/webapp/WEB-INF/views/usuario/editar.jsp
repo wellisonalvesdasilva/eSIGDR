@@ -23,9 +23,7 @@
 						<form:form method="POST" modelAttribute="obj"
 							cssClass='form-horizontal'>
 							<div class="row">
-								<input type="hidden" value='${obj.id}' name="id" /> <input
-									type="hidden" value='${obj.senha}' name="senha" />
-								<div class="col-md-5 pl-1">
+								<div class="col-md-5">
 									<div class="form-group">
 										<label>Nome</label> <input type="text" maxlength='40'
 											minlength='1' value='${obj.nome}' required id="nome"
@@ -39,7 +37,7 @@
 											name="login" class="form-control" placeholder="Login">
 									</div>
 								</div>
-								<div class="col-md-2 pl-1">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label>Ativo</label> <select name="ativo" required id="ativo"
 											class="form-control">
@@ -49,19 +47,20 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-md-3 pl-1">
+								<input type="hidden" value='${obj.id}' name="id" /> <input
+									type="hidden" value='${obj.senha}' name="senha" />
+								<div class="col-md-3">
 									<div class="form-group">
 										<label>Email</label> <input id="email" maxlength='35'
 											minlength='1' value='${obj.email}' required name="email"
 											type="text" class="form-control" placeholder="E-mail">
 									</div>
 								</div>
-
 							</div>
 							<div class="row">
 								<div class="col-md-5">
-									<a name="btnSubmit" href='/SpringMVC/usuario' type="button"
-										class="btn btn-warning btn-fill"> <i
+									<a name="btnSubmit" href='/SpringMVC/usuario/consultar'
+										type="button" class="btn btn-warning btn-fill"> <i
 										class="nc-icon nc-stre-left"></i> Voltar
 									</a>
 
@@ -77,23 +76,18 @@
 								</div>
 								<div class="col-md-7"></div>
 							</div>
-							<div class="clearfix"></div>
 						</form:form>
+						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-</div>
-</div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-
-
-
 	function showNotification(from, align, msg) {
 		color = Math.floor((Math.random() * 4));
 

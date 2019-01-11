@@ -8,6 +8,8 @@ import com.entities.Usuario;
 
 public interface AlimentoDao {
 
+	public List<Alimento> listAlimentosPorCategoria(Integer tipoAlimento);
+
 	public List<Alimento> list(Map<String, String> objPesquisa);
 
 	Alimento getObj(Integer id);

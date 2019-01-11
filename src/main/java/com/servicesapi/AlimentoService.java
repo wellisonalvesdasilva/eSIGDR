@@ -11,7 +11,9 @@ import com.entities.Alimento;
 public interface AlimentoService {
 	List<Alimento> list(Map<String, String> objPesquisa);
 
-	public boolean saveOrUpdate(Alimento users)
+	Map<String, List<Alimento>> getAlimentos();
+
+	public boolean saveOrUpdate(Alimento users, Integer cod)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
 
 	Boolean deletar(Integer cod);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daoapi.ClienteDao;
+import com.entities.Alimento;
 import com.entities.Cliente;
 import com.servicesapi.ClienteService;
 
@@ -23,14 +24,17 @@ public class ClienteServiceImpl implements ClienteService {
 		return _clienteDao.list(objPesquisa);
 	}
 
-	public boolean saveOrUpdate(Cliente users)
+	public boolean saveOrUpdate(Cliente cliente, Integer cod)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException {
-		users.setDataDeCadastro(Calendar.getInstance().getTime());
 
-		if (users.getId() != null) {
-			_clienteDao.merge(users);
+		if (cod != null) {
+			Cliente objLocalizado = _clienteDao.getObj(cod);
+			cliente.setId(objLocalizado.getId());
+			cliente.setDataDeCadastro(objLocalizado.getDataDeCadastro());
+			_clienteDao.merge(cliente);
 		} else {
-			_clienteDao.persist(users);
+
+			_clienteDao.persist(cliente);
 		}
 		return true;
 	}

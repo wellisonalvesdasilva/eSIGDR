@@ -139,6 +139,7 @@
 </div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
 var sucessoMessage = "${message}";
 if (sucessoMessage != "") {

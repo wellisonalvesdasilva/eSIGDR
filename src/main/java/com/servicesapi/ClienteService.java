@@ -11,7 +11,7 @@ import com.entities.Usuario;
 public interface ClienteService {
 	public List<Cliente> list(Map<String, String> objPesquisa);
 
-	public boolean saveOrUpdate(Cliente users)
+	public boolean saveOrUpdate(Cliente cliente, Integer cod)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
 
 	Boolean deletar(Integer cod);

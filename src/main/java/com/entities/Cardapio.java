@@ -41,13 +41,6 @@ public class Cardapio {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
-	@ManyToOne
-	@JoinColumn(name = "categoria_id", insertable = false, updatable = false)
-	private Categoria categoria;
-
-	@Column(name = "categoria_id")
-	private Integer categoria_id;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "cardapio", fetch = FetchType.LAZY, orphanRemoval = false)
 	private List<Venda> vendas;
@@ -75,22 +68,6 @@ public class Cardapio {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public Integer getCategoria_id() {
-		return categoria_id;
-	}
-
-	public void setCategoria_id(Integer categoria_id) {
-		this.categoria_id = categoria_id;
 	}
 
 	public Integer getId() {

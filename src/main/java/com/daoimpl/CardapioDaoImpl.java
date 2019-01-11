@@ -22,8 +22,6 @@ public class CardapioDaoImpl implements CardapioDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Cardapio> list(Map<String, String> objPesquisa) {
-
-		return session.getCurrentSession().createQuery("from Cardapio as c inner join fetch c.categoria").list();
-
+		return session.getCurrentSession().createQuery("from Cardapio").list();
 	}
 }

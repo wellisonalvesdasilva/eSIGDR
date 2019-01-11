@@ -17,72 +17,73 @@
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Gerenciamento de Agendamentos</h4>
+						<h4 class="card-title">Lista de Pedidos à Entregar</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>
 							<div class="row">
-								<div class="col-md-1 pr-1">
+								<div class="col-md-1">
 									<div class="form-group">
 										<label>Código</label> <input id="id" maxlength="5"
 											minlength="1" value='${(fn:escapeXml(param.id))}' name="id"
 											type="text" class="form-control" placeholder="Código">
 									</div>
 								</div>
-								<div class="col-md-4 pl-1">
+								<div class="col-md-2">
 									<div class="form-group">
-										<label>Nome</label> <input type="text" maxlength="40"
-											minlength="1" value='${(fn:escapeXml(param.nome))}' id="nome"
-											name="nome" class="form-control" placeholder="Nome">
+										<label>Data de Entrada</label> <input type="text"
+											maxlength="40" minlength="1"
+											value='${(fn:escapeXml(param.nome))}' id="nome" name="nome"
+											class="form-control" placeholder="Data de Entrega">
+									</div>
+								</div>
+								<div class="col-md-1">
+									<div class="form-group">
+										<label>Cód. Venda</label> <input
+											value='${(fn:escapeXml(param.login))}' maxlength="35"
+											minlength="1" type="text" id="login" name="login"
+											class="form-control" placeholder="Venda">
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
-										<label>Login</label> <input
+										<label>Status</label> <input
+											value='${(fn:escapeXml(param.login))}' maxlength="35"
+											minlength="1" type="text" id="login" name="login"
+											class="form-control" placeholder="Status">
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label>Responsável</label> <input
 											value='${(fn:escapeXml(param.login))}' maxlength="35"
 											minlength="1" type="text" id="login" name="login"
 											class="form-control" placeholder="Login">
 									</div>
 								</div>
-								<div class="col-md-2 pl-1">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Ativo</label> <select name="ativo" id="ativo"
-											class="form-control">
-											<option value="">Selecione</option>
-											<option value="1">Sim</option>
-											<option value="2">Não</option>
-										</select>
+										<label>Pedido Gerado Por</label> <input
+											value='${(fn:escapeXml(param.login))}' maxlength="35"
+											minlength="1" type="text" id="login" name="login"
+											class="form-control" placeholder="Login">
 									</div>
 								</div>
-								<div class="col-md-3 pl-1">
-									<div class="form-group">
-										<label>Email</label> <input id="email" maxlength="35"
-											minlength="1" value='${(fn:escapeXml(param.email))}'
-											name="email" type="text" class="form-control"
-											placeholder="E-mail">
-									</div>
-								</div>
-
 							</div>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-6"></div>
+								<div class="col-md-6 text-right">
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
-										<i class="fa fa-search"></i> Pesquisar
+										<i class="nc-icon nc-zoom-split"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos" href='usuario'
 										id="btnLimpar" type="submit" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
-									</a> <a name="btnSubmit" rel="tooltip"
-										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='usuario/cadastrar' type="submit"
-										class="btn btn-success btn-fill"> <i
-										class="nc-icon nc-single-02"></i> Novo Usuário
 									</a>
 								</div>
-								<div class="col-md-7"></div>
 							</div>
 							<div class="clearfix"></div>
 						</form:form>
@@ -93,44 +94,43 @@
 								<thead>
 									<tr>
 										<th class="text-center">ID</th>
-										<th class="text-center">NOME</th>
-										<th class="text-center">LOGIN</th>
-										<th class="text-center">EMAIL</th>
-										<th class="text-center">ATIVO</th>
+										<th class="text-center">DATA DE ENTREGA</th>
+										<th class="text-center">PEDIDO GERADO POR</th>
+										<th class="text-center">NÚMERO VENDA</th>
+										<th class="text-center">STATUS</th>
+										<th class="text-center">RESPONSÁVEL</th>
 										<th class="text-center">AÇÕES</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="it" items="${lista}" varStatus="status">
-										<tr>
-											<td class="text-center">${it.id}</td>
-											<td>${it.nome}</td>
-											<td class="text-center">${it.login}</td>
-											<td>${it.email}</td>
-											<td class="text-center"><c:choose>
-													<c:when test="${it.ativo == true}">Sim</c:when>
-													<c:when test="${it.ativo == false}">Não</c:when>
-												</c:choose></td>
-											<td class="text-center"><a rel="tooltip"
-												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='usuario/editar/${it.id}' type="button"
-												class="btn btn-success btn-fill"> <i
-													class="nc-icon nc-settings-tool-66"></i>
-											</a>
-												<button rel="tooltip" name="btnSubmit"
-													data-original-title="Trocar Senha"
-													onclick="resetarSenha(${it.id})" type="button"
-													class="btn btn-default btn-fill">
-													<i class="nc-icon nc-refresh-02"></i>
-												</button>
-												<button rel="tooltip" name="btnSubmit"
-													data-original-title="Excluir" id="btnSubmit"
-													onclick="excluirFuncionario(${it.id})" type="button"
-													class="btn btn-danger btn-fill">
-													<i class="nc-icon nc-simple-remove"></i>
-												</button></td>
-										</tr>
-									</c:forEach>
+									<%--<c:forEach var="it" items="${lista}" varStatus="status"> --%>
+									<tr>
+										<td class="text-center">25</td>
+										<td class="text-center">09/01/2018</td>
+										<td class="text-center">Wellison Alves da Silva</td>
+										<td class="text-center">25</td>
+										<td class="text-center">Pendente</td>
+										<td class="text-center">-</td>
+										<td class="text-center"><a rel="tooltip"
+											data-original-title="Editar" name="btnSubmit" id="btnSubmit"
+											href='usuario/editar/${it.id}' type="button"
+											class="btn btn-default btn-fill"> <i
+												class="nc-icon nc-tap-01"></i>
+										</a>
+											<button rel="tooltip" name="btnSubmit"
+												data-original-title="Trocar Senha"
+												onclick="resetarSenha(${it.id})" type="button"
+												class="btn btn-success btn-fill">
+												<i class="nc-icon nc-zoom-split"></i>
+											</button>
+											<button rel="tooltip" name="btnSubmit"
+												data-original-title="Excluir" id="btnSubmit"
+												onclick="excluirFuncionario(${it.id})" type="button"
+												class="btn btn-danger btn-fill">
+												<i class="nc-icon nc-simple-remove"></i>
+											</button></td>
+									</tr>
+									<%--</c:forEach>--%>
 								</tbody>
 							</table>
 						</div>
@@ -199,29 +199,8 @@
 </div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-
-$(document).ready(function() {		
-	
-	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
-		valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
-	
-		})
-		
-	// Abrir Modal "Excluir Funcionário"
-	var codFuncionario = 0;
-	function excluirFuncionario(cod) {
-		$('#myModal').modal();
-		codFuncionario = cod;
-	}
-	
-	// Abrir Modal "Alterar Senha"
-	var codFuncionarioAlterarSenha = 0;
-	function resetarSenha(cod) {
-		$('#modalResetaSenha').modal();
-		codFuncionarioAlterarSenha = cod;
-	}
-
 	// Abrir tela com o Datatable carregado
 	function dataTable() {
 		$('#example').DataTable({
@@ -275,62 +254,10 @@ $(document).ready(function() {
 		});
 	}
 	
-	
 	var sucessoMessage = "${message}";
 	if (sucessoMessage != "") {
 		showNotification('top', 'right', sucessoMessage);
 	}
-
-	// Evento Alterar Senha
-		$('#btnConfirmarResetSenha').click(function(){
-			$('#btnConfirmarResetSenha').attr('disabled', 'disabled');
-			$('#btnCancelarResetSenha').attr('disabled', 'disabled');
-			var novaSenha = "0";
-			if($('#novaSenha').val())
-				{
-					novaSenha = $('#novaSenha').val();
-				}
-			$.ajax({
-				url:'usuario/alterarSenha/'+codFuncionarioAlterarSenha,
-				type:'POST',
-				contentType: "application/json",
-				data: novaSenha
-			}).done(function(data){
-				showNotification('top', 'right', 'Senha alterada com sucesso!');
-				$('#btnConfirmarResetSenha').attr('disabled', false);
-				$('#btnCancelarResetSenha').attr('disabled', false);
-				$('#modalResetaSenha').modal('hide');
-				}).fail(function(data){
-					showNotification('top', 'right', 'Erro inesperado.');							
-			});		
-		});			
-		
-	// Evento Excluir Funcionário
-	$('#btnConfirmar').click(function() {
-		$('#btnConfirmar').attr('disabled', 'disabled');
-		$('#btnCancelar').attr('disabled', 'disabled');
-		$.ajax({
-			url : 'usuario/excluir/'+codFuncionario,
-			type : 'POST',
-			contentType: "application/json"
-		}).done(function(data) {
-			console.log(data);
-			$('#myModal').modal('hide');
-			showNotification('top', 'right', 'Registro excluído com sucesso!');
-			setTimeout(function() {
-			location.reload();
-			}, 1000);
-
-		}).fail(function(data) {
-			$('.loader').hide();
-			showNotification('top', 'right', 'Erro ao excluir o registro!');
-			setTimeout(function() {
-			location.reload();
-			}, 1000);
-	$('#myModal').modal('hide');
-		});
-	});
-	
 	
 </script>
 </body>

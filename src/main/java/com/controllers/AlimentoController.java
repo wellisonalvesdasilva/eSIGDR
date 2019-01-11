@@ -15,10 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.entities.Alimento;
 import com.servicesapi.AlimentoService;
+import com.servicesapi.CategoriaService;
 
 @Controller
 @RequestMapping("alimento")
 public class AlimentoController {
+
+	@Autowired
+	CategoriaService _categoriaService;
 
 	@Autowired
 	AlimentoService _alimentoService;
@@ -32,12 +36,13 @@ public class AlimentoController {
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })
 	public ModelAndView inserirAlimento(ModelMap model) {
 		model.addAttribute("obj", new Alimento());
+		model.addAttribute("categorias", _categoriaService.getCategorias());
 		return new ModelAndView("alimento/cadastrar");
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
 	public String enviar(@ModelAttribute("obj") Alimento obj, RedirectAttributes ra, ModelMap model) throws Exception {
-		_alimentoService.saveOrUpdate(obj);
+		_alimentoService.saveOrUpdate(obj, null);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
 		return "redirect:/alimento/cadastrar";
 	}
@@ -45,14 +50,16 @@ public class AlimentoController {
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
 	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) {
 		model.addAttribute("obj", _alimentoService.getObj(cod));
+		model.addAttribute("categorias", _categoriaService.getCategorias());
 		return new ModelAndView("alimento/editar");
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })
-	public String updateAviso(@ModelAttribute("obj") Alimento objMerge, RedirectAttributes ra) throws Exception {
-		_alimentoService.saveOrUpdate(objMerge);
+	public String updateAviso(@PathVariable("cod") Integer cod, @ModelAttribute("obj") Alimento objMerge,
+			RedirectAttributes ra) throws Exception {
+		_alimentoService.saveOrUpdate(objMerge, cod);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/alimento";
+		return "redirect:/alimento/consultar";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })

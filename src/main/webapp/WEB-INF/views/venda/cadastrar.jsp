@@ -87,11 +87,9 @@
 		</div>
 	</div>
 </div>
-
-</div>
-</div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
 	function showNotification(from, align, msg) {
 		color = Math.floor((Math.random() * 4));

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.entities.Alimento;
 import com.entities.Cliente;
 import com.servicesapi.ClienteService;
 
@@ -38,7 +39,7 @@ public class ClienteController {
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.POST })
 	public String enviar(@ModelAttribute("obj") Cliente obj, RedirectAttributes ra, ModelMap model) throws Exception {
-		_clienteService.saveOrUpdate(obj);
+		_clienteService.saveOrUpdate(obj, null);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
 		return "redirect:/cliente/cadastrar";
 	}
@@ -50,10 +51,11 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.POST })
-	public String updateAviso(@ModelAttribute("obj") Cliente objMerge, RedirectAttributes ra) throws Exception {
-		_clienteService.saveOrUpdate(objMerge);
+	public String updateAviso(@PathVariable("cod") Integer cod, @ModelAttribute("obj") Cliente objMerge,
+			RedirectAttributes ra) throws Exception {
+		_clienteService.saveOrUpdate(objMerge, cod);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/cliente";
+		return "redirect:/cliente/consultar";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })

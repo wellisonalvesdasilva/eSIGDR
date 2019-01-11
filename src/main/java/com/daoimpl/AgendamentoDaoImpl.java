@@ -62,9 +62,11 @@ public class AgendamentoDaoImpl implements AgendamentoDao {
 		}
 
 		if (sql != "") {
-			return session.getCurrentSession().createQuery("from Agendamento as u" + " " + sql).list();
+			return session.getCurrentSession()
+					.createQuery("from Agendamento as u " + "inner join fetch u.status" + " " + sql).list();
 		} else {
-			return session.getCurrentSession().createQuery("from Agendamento").list();
+			return session.getCurrentSession().createQuery("from Agendamento as u " + "inner join fetch u.status")
+					.list();
 		}
 	}
 

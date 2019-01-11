@@ -21,51 +21,34 @@ public class AlimentoDaoImpl implements AlimentoDao {
 
 		String sql = "";
 
-		if (objPesquisa.get("id") != "" && objPesquisa.get("id") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.id='" + objPesquisa.get("id") + "'";
-			} else {
-				sql = "where u.id='" + objPesquisa.get("id") + "'";
+		if (objPesquisa != null) {
+			if (objPesquisa.get("id") != "" && objPesquisa.get("id") != null) {
+				if (sql.contains("where")) {
+					sql = sql + "and u.id='" + objPesquisa.get("id") + "'";
+				} else {
+					sql = "where u.id='" + objPesquisa.get("id") + "'";
+				}
+			}
+
+			if (objPesquisa.get("titulo") != "" && objPesquisa.get("titulo") != null) {
+				if (sql.contains("where")) {
+					sql = sql + "and u.titulo='" + objPesquisa.get("titulo") + "'";
+				} else {
+					sql = "where u.titulo='" + objPesquisa.get("titulo") + "'";
+				}
 			}
 		}
-
-		if (objPesquisa.get("nome") != "" && objPesquisa.get("nome") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.nome='" + objPesquisa.get("nome") + "'";
-			} else {
-				sql = "where u.nome='" + objPesquisa.get("nome") + "'";
-			}
-		}
-
-		if (objPesquisa.get("login") != "" && objPesquisa.get("login") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.login='" + objPesquisa.get("login") + "'";
-			} else {
-				sql = "where u.login='" + objPesquisa.get("login") + "'";
-			}
-		}
-
-		if (objPesquisa.get("ativo") != "" && objPesquisa.get("ativo") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.ativo='" + objPesquisa.get("ativo") + "'";
-			} else {
-				sql = "where u.ativo='" + objPesquisa.get("ativo") + "'";
-			}
-		}
-
-		if (objPesquisa.get("email") != "" && objPesquisa.get("email") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.email='" + objPesquisa.get("email") + "'";
-			} else {
-				sql = "where u.email='" + objPesquisa.get("email") + "'";
-			}
-		}
-
 		if (sql != "") {
 			return session.getCurrentSession().createQuery("from Alimento as u" + " " + sql).list();
 		} else {
 			return session.getCurrentSession().createQuery("from Alimento").list();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Alimento> listAlimentosPorCategoria(Integer tipoAlimento) {
+		return session.getCurrentSession().createQuery("from Alimento as u where u.categoria_id =" + tipoAlimento)
+				.list();
 	}
 
 	public boolean deletar(Integer id) {

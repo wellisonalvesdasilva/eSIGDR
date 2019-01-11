@@ -26,7 +26,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Nome</label> <input type="text" maxlength='40'
-											minlength='20' required id="nome" name="nome"
+											minlength='1' required id="nome" name="nome"
 											class="form-control" placeholder="Nome">
 									</div>
 								</div>
@@ -34,7 +34,7 @@
 									<div class="form-group">
 										<label>Login</label> <input
 											value='${(fn:escapeXml(param.login))}' maxlength='20'
-											minlength='20' type="text" id="login" required name="login"
+											minlength='1' type="text" id="login" required name="login"
 											class="form-control" placeholder="Login">
 									</div>
 								</div>
@@ -67,8 +67,8 @@
 							</div>
 							<div class="row">
 								<div class="col-md-5">
-									<a name="btnSubmit" href='/SpringMVC/usuario' type="button"
-										class="btn btn-warning btn-fill"> <i
+									<a name="btnSubmit" href='/SpringMVC/usuario/consultar'
+										type="button" class="btn btn-warning btn-fill"> <i
 										class="nc-icon nc-stre-left"></i> Voltar
 									</a>
 
@@ -84,16 +84,13 @@
 								</div>
 								<div class="col-md-7"></div>
 							</div>
-							<div class="clearfix"></div>
 						</form:form>
+						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-</div>
 </div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
@@ -155,4 +152,5 @@
 	dataTable();
 </script>
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 </html>

@@ -23,14 +23,14 @@
 					<div class="card-body">
 						<form:form method="POST" cssClass='form-horizontal'>
 							<div class="row">
-								<div class="col-md-1 pr-1">
+								<div class="col-md-2 pr-1">
 									<div class="form-group">
 										<label>Código</label> <input id="id" maxlength="5"
 											minlength="1" value='${(fn:escapeXml(param.id))}' name="id"
 											type="text" class="form-control" placeholder="Código">
 									</div>
 								</div>
-								<div class="col-md-4 pl-1">
+								<div class="col-md-3">
 									<div class="form-group">
 										<label>Nome</label> <input type="text" maxlength="40"
 											minlength="1" value='${(fn:escapeXml(param.nome))}' id="nome"
@@ -45,7 +45,7 @@
 											class="form-control" placeholder="Login">
 									</div>
 								</div>
-								<div class="col-md-2 pl-1">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label>Ativo</label> <select name="ativo" id="ativo"
 											class="form-control">
@@ -55,7 +55,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-md-3 pl-1">
+								<div class="col-md-3">
 									<div class="form-group">
 										<label>Email</label> <input id="email" maxlength="35"
 											minlength="1" value='${(fn:escapeXml(param.email))}'
@@ -63,27 +63,26 @@
 											placeholder="E-mail">
 									</div>
 								</div>
-
 							</div>
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-md-6"></div>
+								<div class="col-md-6 text-right">
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
 										<i class="nc-icon nc-zoom-split"></i> Pesquisar
 									</button>
 									<a name="btnLimpar" rel="tooltip"
-										data-original-title="Limpar Campos" href='usuario'
+										data-original-title="Limpar Campos" href='consultar'
 										id="btnLimpar" type="submit" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='usuario/cadastrar' type="submit"
+										href='/SpringMVC/usuario/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
 										class="nc-icon nc-single-02"></i> Novo Usuário
 									</a>
 								</div>
-								<div class="col-md-7"></div>
 							</div>
 							<div class="clearfix"></div>
 						</form:form>
@@ -114,7 +113,7 @@
 												</c:choose></td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='usuario/editar/${it.id}' type="button"
+												href='/SpringMVC/usuario/editar/${it.id}' type="button"
 												class="btn btn-success btn-fill"> <i
 													class="nc-icon nc-settings-tool-66"></i>
 											</a>
@@ -200,8 +199,8 @@
 </div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-
 $(document).ready(function() {		
 	
 	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
@@ -311,7 +310,7 @@ $(document).ready(function() {
 		$('#btnConfirmar').attr('disabled', 'disabled');
 		$('#btnCancelar').attr('disabled', 'disabled');
 		$.ajax({
-			url : 'usuario/excluir/'+codFuncionario,
+			url : 'excluir/'+codFuncionario,
 			type : 'POST',
 			contentType: "application/json"
 		}).done(function(data) {

@@ -1,4 +1,4 @@
-z<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -17,86 +17,79 @@ z<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 			<div class="col-md-12">
 				<div class="card strpied-tabled-with-hover">
 					<div class="card-header ">
-						<h4 class="card-title">Cadastrar Usuário</h4>
+						<h4 class="card-title">Cadastrar Cliente</h4>
 					</div>
 					<div class="card-body">
 						<form:form method="POST" modelAttribute="obj"
 							cssClass='form-horizontal'>
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Nome</label> <input type="text" maxlength='40'
-											minlength='20' required id="nome" name="nome"
-											class="form-control" placeholder="Nome">
+										<label>Nome</label> <input type="text" maxlength="40"
+											minlength="1" id="nome" name="nome" class="form-control"
+											placeholder="Nome">
 									</div>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Login</label> <input
-											value='${(fn:escapeXml(param.login))}' maxlength='20'
-											minlength='20' type="text" id="login" required name="login"
-											class="form-control" placeholder="Login">
+										<label>Email</label> <input type="text" maxlength="40"
+											minlength="1" id="email" name="email" class="form-control"
+											placeholder="Email">
 									</div>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Senha</label> <input type="password" maxlength='8'
-											minlength='6' id="senha" required name="senha"
-											class="form-control" placeholder="Senha">
+										<label>CPF</label> <input type="text" maxlength="40"
+											minlength="1" id="cpf" name="cpf" class="form-control"
+											placeholder="CPF">
 									</div>
 								</div>
-								<div class="col-md-2 pl-1">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Ativo</label> <select name="ativo" required id="ativo"
-											class="form-control">
-											<option value="">Selecione</option>
-											<option value="1">Sim</option>
-											<option value="0">Não</option>
-										</select>
+										<label>Telefone</label> <input type="text" maxlength="40"
+											minlength="1" id="telefone" name="telefone"
+											class="form-control" placeholder="Telefone">
 									</div>
 								</div>
-								<div class="col-md-2 pl-1">
+							</div>
+							<div class="row">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label>Email</label> <input id="email" maxlength='35'
-											minlength='20' value='${(fn:escapeXml(param.email))}'
-											required name="email" type="text" class="form-control"
-											placeholder="E-mail">
+										<label>Telefone Recado</label> <input type="text"
+											maxlength="40" minlength="1" id="telefoneRecado"
+											name="telefoneRecado" class="form-control"
+											placeholder="Telefone Recado">
 									</div>
 								</div>
-
 							</div>
 							<div class="row">
 								<div class="col-md-5">
-									<a name="btnSubmit" href='/SpringMVC/usuario' type="button"
-										class="btn btn-warning btn-fill"> <i
+									<a name="btnSubmit" href='/SpringMVC/cliente/consultar'
+										type="button" class="btn btn-warning btn-fill"> <i
 										class="nc-icon nc-stre-left"></i> Voltar
 									</a>
-
 									<button name="btnSubmit" type="submit" id="btnSubmit"
 										type="button" class="btn btn-success btn-fill">
 										<i class="nc-icon nc-send"></i> Salvar
 									</button>
-
-									<a name="btnSubmit" href='/SpringMVC/usuario/cadastrar'
+									<a name="btnSubmit" href='/SpringMVC/cliente/cadastrar'
 										id="btnSubmit" type="submit" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a>
 								</div>
 								<div class="col-md-7"></div>
 							</div>
-							<div class="clearfix"></div>
 						</form:form>
+						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-</div>
-</div>
 <jsp:include page="../template/rodape.jsp" />
 </body>
+<jsp:include page="../template/scripts-rodape.jsp" />
 <script>
 	function showNotification(from, align, msg) {
 		color = Math.floor((Math.random() * 4));

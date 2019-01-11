@@ -38,27 +38,35 @@ public class ClienteDaoImpl implements ClienteDao {
 			}
 		}
 
-		if (objPesquisa.get("login") != "" && objPesquisa.get("login") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.login='" + objPesquisa.get("login") + "'";
-			} else {
-				sql = "where u.login='" + objPesquisa.get("login") + "'";
-			}
-		}
-
-		if (objPesquisa.get("ativo") != "" && objPesquisa.get("ativo") != null) {
-			if (sql.contains("where")) {
-				sql = sql + "and u.ativo='" + objPesquisa.get("ativo") + "'";
-			} else {
-				sql = "where u.ativo='" + objPesquisa.get("ativo") + "'";
-			}
-		}
-
 		if (objPesquisa.get("email") != "" && objPesquisa.get("email") != null) {
 			if (sql.contains("where")) {
 				sql = sql + "and u.email='" + objPesquisa.get("email") + "'";
 			} else {
 				sql = "where u.email='" + objPesquisa.get("email") + "'";
+			}
+		}
+
+		if (objPesquisa.get("cpf") != "" && objPesquisa.get("cpf") != null) {
+			if (sql.contains("where")) {
+				sql = sql + "and u.cpf='" + objPesquisa.get("cpf") + "'";
+			} else {
+				sql = "where u.cpf='" + objPesquisa.get("cpf") + "'";
+			}
+		}
+
+		if (objPesquisa.get("telefone") != "" && objPesquisa.get("telefone") != null) {
+			if (sql.contains("where")) {
+				sql = sql + "and u.telefone='" + objPesquisa.get("telefone") + "'";
+			} else {
+				sql = "where u.telefone='" + objPesquisa.get("telefone") + "'";
+			}
+		}
+
+		if (objPesquisa.get("telefoneRecado") != "" && objPesquisa.get("telefoneRecado") != null) {
+			if (sql.contains("where")) {
+				sql = sql + "and u.telefoneRecado='" + objPesquisa.get("telefoneRecado") + "'";
+			} else {
+				sql = "where u.telefoneRecado='" + objPesquisa.get("telefoneRecado") + "'";
 			}
 		}
 

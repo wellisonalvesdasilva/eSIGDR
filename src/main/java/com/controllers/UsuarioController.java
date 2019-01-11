@@ -53,7 +53,7 @@ public class UsuarioController {
 	public String updateAviso(@ModelAttribute("obj") Usuario objMerge, RedirectAttributes ra) throws Exception {
 		_usuarioService.saveOrUpdate(objMerge);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/usuario";
+		return "redirect:/usuario/consultar";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })

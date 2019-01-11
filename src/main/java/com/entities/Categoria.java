@@ -25,15 +25,7 @@ public class Categoria {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, orphanRemoval = false)
-	private List<Cardapio> cardapios;
-
-	public List<Cardapio> getCardapios() {
-		return cardapios;
-	}
-
-	public void setCardapios(List<Cardapio> cardapios) {
-		this.cardapios = cardapios;
-	}
+	private List<Alimento> alimentos;
 
 	public Integer getId() {
 		return id;
@@ -49,6 +41,14 @@ public class Categoria {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public List<Alimento> getAlimentos() {
+		return alimentos;
+	}
+
+	public void setAlimentos(List<Alimento> alimentos) {
+		this.alimentos = alimentos;
 	}
 
 }
