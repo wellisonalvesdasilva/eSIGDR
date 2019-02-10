@@ -10,11 +10,12 @@ import com.entities.Usuario;
 public interface UsuarioService {
 	public List<Usuario> list(Map<String, String> objPesquisa);
 
-	public boolean saveOrUpdate(Usuario users) throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
+	public boolean saveOrUpdate(Usuario users)
+			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
 
 	Boolean deletar(Integer cod);
 
-	Object getObj(Integer id);
+	Object getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException;
 
 	void alterarSenha(Integer cod, String novaSenha) throws Exception;
 }

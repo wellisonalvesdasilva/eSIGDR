@@ -1,4 +1,8 @@
 package com.daoimpl;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.SessionFactory;
@@ -78,12 +82,36 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		return false;
 	}
 
-	public Usuario getObj(Integer id) {
-		Usuario ObjLocalizado = (Usuario) session.getCurrentSession()
-				.createQuery("from Usuario as u where u.id = " + id).list().get(0);
-		if (ObjLocalizado != null) {
-			return ObjLocalizado;
+	public Usuario getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException {
+
+		Usuario ObjLocalizado = null;
+
+		try {
+			if (login != null && senha != null) {
+
+				String s = senha;
+				MessageDigest m = MessageDigest.getInstance("MD5");
+				m.update(s.getBytes(), 0, s.length());
+				String sMd5 = new BigInteger(1, m.digest()).toString(16);
+
+				m.update(senha.toString().getBytes(), 0, senha.toString().length());
+				ObjLocalizado = (Usuario) session.getCurrentSession()
+						.createQuery("from Usuario as u where u.login = '" + login + "' and u.senha ='" + sMd5 + "'")
+						.list().get(0);
+
+			} else {
+				ObjLocalizado = (Usuario) session.getCurrentSession()
+						.createQuery("from Usuario as u where u.id = " + id).list().get(0);
+			}
+
+			if (ObjLocalizado != null) {
+				return ObjLocalizado;
+			}
+
+		} catch (Exception e) {
+			return null;
 		}
+
 		return null;
 	}
 

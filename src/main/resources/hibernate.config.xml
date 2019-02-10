@@ -15,5 +15,6 @@
 		<mapping class="com.entities.Status" />
 		<mapping class="com.entities.Usuario" />
 		<mapping class="com.entities.Venda" />
+		<mapping class="com.entities.TipoCardapio" />
 	</session-factory>
 </hibernate-configuration>

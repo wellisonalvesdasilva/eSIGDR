@@ -1,8 +1,8 @@
 package com.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +18,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -50,22 +52,6 @@ public class Usuario {
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = false)
 	private List<Venda> vendas;
-
-	public List<Venda> getVendas() {
-		return vendas;
-	}
-
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public Integer getId() {
 		return id;
@@ -115,12 +101,28 @@ public class Usuario {
 		this.ativo = ativo;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public List<Agendamento> getAgendamentos() {
 		return agendamentos;
 	}
 
 	public void setAgendamentos(List<Agendamento> agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 }

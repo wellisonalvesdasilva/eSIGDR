@@ -49,13 +49,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return _userDao.deletar(cod);
 	}
 
-	public Object getObj(Integer id) {
-		return _userDao.getObj(id);
+	public Object getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException {
+		return _userDao.getObj(id, login, senha);
 	}
 
 	public void alterarSenha(Integer cod, String novaSenha) throws Exception {
 
-		Usuario objLocalizado = _userDao.getObj(cod);
+		Usuario objLocalizado = _userDao.getObj(cod, null, null);
 
 		if (objLocalizado != null) {
 

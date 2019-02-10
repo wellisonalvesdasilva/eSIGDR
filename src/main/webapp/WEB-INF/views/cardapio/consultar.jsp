@@ -88,7 +88,6 @@
 										<th class="text-center">DATA</th>
 										<th class="text-center">NOME DO CARDÁPIO</th>
 										<th class="text-center">VALOR</th>
-										<th class="text-center">CATEGORIA</th>
 										<th class="text-center">AÇÕES</th>
 									</tr>
 								</thead>
@@ -99,8 +98,7 @@
 											<td class="text-center"><fmt:formatDate
 													pattern="dd/MM/yyyy" value="${it.data}" />
 											<td>${it.titulo}</td>
-											<td>R$ ${it.valor}0</td>
-											<td class="text-center">${it.categoria.titulo}</td>
+											<td class="text-center">R$ ${it.valor}0</td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
 												href='#' type="button" class="btn btn-success btn-fill">
@@ -169,15 +167,11 @@ function dataTable() {
 				"width" : "15%",
 				"targets" : 4,
 				className : 'mdl-data-table__cell--non-numeric'
-			}, {
-				"width" : "3%",
-				"targets" : 5,
-				className : 'mdl-data-table__cell--non-numeric'
+			
 
 			}, ],
 		});
 	};
-
 	dataTable();
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.controllers;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService _usuarioService;
 
-	@RequestMapping(value = "/consultar",method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/consultar", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
 		model.addAttribute("lista", _usuarioService.list(objPesquisa));
 		return new ModelAndView("usuario/consultar");
@@ -44,8 +45,8 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
-	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) {
-		model.addAttribute("obj", _usuarioService.getObj(cod));
+	public ModelAndView editarAviso(@PathVariable("cod") Integer cod, ModelMap model) throws NoSuchAlgorithmException {
+		model.addAttribute("obj", _usuarioService.getObj(cod, null, null));
 		return new ModelAndView("usuario/editar");
 	}
 
