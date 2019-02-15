@@ -65,12 +65,12 @@
 									</button>
 									<a name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos"
-										href='/SpringMVC/venda/consultar' id="btnLimpar" type="submit"
+										href='#' id="btnLimpar" type="submit"
 										class="btn btn-dafault btn-fill"> <i
 										class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='/SpringMVC/venda/cadastrar' type="submit"
+										href='/e-SIGDR/home/venda/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
 										class="nc-icon nc-cart-simple"></i> Nova Venda
 									</a>
@@ -87,16 +87,46 @@
 									<tr>
 										<th class="text-center">ID</th>
 										<th class="text-center">DATA</th>
-										<th class="text-center">NOME DO CARDÁPIO</th>
-										<th class="text-center">VALOR</th>
-										<th class="text-center">CATEGORIA</th>
+										<th class="text-center">ATENDENTE</th>
+										<th class="text-center">CLIENTE</th>
+										<th class="text-center">GEROU PEDIDO Á ENTREGAR</th>
 										<th class="text-center">AÇÕES</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="it" items="${lista}" varStatus="status">
-										<tr>
-											<td class="text-center">${it.id}</td>
+									<%-- <c:forEach var="it" items="${lista}" varStatus="status"> --%>
+									<tr>
+										<td class="text-center">25</td>
+										<td class="text-center">10/02/2019</td>
+										<td class="text-center">Wellison Alves da Silva</td>
+										<td class="text-center">Josiane Gomes dos Santos</td>
+										<td class="text-center">Sim</td>
+										<td class="text-center"><a rel="tooltip"
+											data-original-title="Editar" name="btnSubmit" id="btnSubmit"
+											href='#' type="button" class="btn btn-success btn-fill">
+												<i class="nc-icon nc-settings-tool-66"></i>
+										</a>
+											<button rel="tooltip" name="btnSubmit"
+												data-original-title="Visualizar Detalhes da Venda"
+												onclick="#" type="button" class="btn btn-primary btn-fill">
+												<i class="nc-icon nc-zoom-split"></i>
+											</button>
+
+											<button rel="tooltip" name="btnSubmit"
+												data-original-title="Acompanhar Detalhes do Pedido"
+												id="btnSubmit" onclick="#" type="button"
+												class="btn btn-info btn-fill">
+												<i class="nc-icon nc-delivery-fast icon-bold"></i>
+											</button>
+
+											<button rel="tooltip" name="btnSubmit"
+												data-original-title="Cancelar Venda" id="btnSubmit"
+												onclick="#" type="button" class="btn btn-warning btn-fill">
+												<i class="nc-icon nc-simple-remove"></i>
+											</button></td>
+
+
+										<%-- <td class="text-center">${it.id}</td>
 											<td class="text-center"><fmt:formatDate
 													pattern="dd/MM/yyyy" value="${it.data}" />
 											<td>${it.titulo}</td>
@@ -126,9 +156,9 @@
 													data-original-title="Excluir" id="btnSubmit" onclick="#"
 													type="button" class="btn btn-danger btn-fill">
 													<i class="nc-icon nc-simple-remove"></i>
-												</button></td>
-										</tr>
-									</c:forEach>
+												</button></td> --%>
+									</tr>
+									<%-- </c:forEach> --%>
 								</tbody>
 							</table>
 						</div>
@@ -142,15 +172,15 @@
 </body>
 <jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-var sucessoMessage = "${message}";
-if (sucessoMessage != "") {
-	showNotification('top', 'right', sucessoMessage);
-}
+	var sucessoMessage = "${message}";
+	if (sucessoMessage != "") {
+		showNotification('top', 'right', sucessoMessage);
+	}
 
-function dataTable() {
+	function dataTable() {
 		$('#example').DataTable({
 			columnDefs : [ {
-				"width" : "18%",
+				"width" : "20%",
 				"targets" : 0,
 				className : 'mdl-data-table__cell--non-numeric'
 			}, {
@@ -159,22 +189,23 @@ function dataTable() {
 				className : 'mdl-data-table__cell--non-numeric'
 
 			}, {
-				"width" : "15%",
+				"width" : "20%",
 				"targets" : 2,
 				className : 'mdl-data-table__cell--non-numeric'
 			}, {
-				"width" : "15%",
+				"width" : "20%",
 				"targets" : 3,
 				className : 'mdl-data-table__cell--non-numeric'
 			}, {
-				"width" : "15%",
+				"width" : "20%",
 				"targets" : 4,
 				className : 'mdl-data-table__cell--non-numeric'
 			}, {
-				"width" : "3%",
+				"width" : "20%",
 				"targets" : 5,
 				className : 'mdl-data-table__cell--non-numeric'
-
+		
+		
 			}, ],
 		});
 	};

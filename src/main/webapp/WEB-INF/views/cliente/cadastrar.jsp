@@ -64,7 +64,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-5">
-									<a name="btnSubmit" href='/SpringMVC/cliente/consultar'
+									<a name="btnSubmit" href='/e-SIGDR/home/cliente/consultar'
 										type="button" class="btn btn-warning btn-fill"> <i
 										class="nc-icon nc-stre-left"></i> Voltar
 									</a>
@@ -72,7 +72,7 @@
 										type="button" class="btn btn-success btn-fill">
 										<i class="nc-icon nc-send"></i> Salvar
 									</button>
-									<a name="btnSubmit" href='/SpringMVC/cliente/cadastrar'
+									<a name="btnSubmit" href='/e-SIGDR/home/cliente/cadastrar'
 										id="btnSubmit" type="submit" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a>

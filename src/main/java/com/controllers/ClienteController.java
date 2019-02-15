@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,7 +20,8 @@ import com.entities.Cliente;
 import com.servicesapi.ClienteService;
 
 @Controller
-@RequestMapping("cliente")
+@RequestMapping("/home/cliente")
+@SessionAttributes("roles")
 public class ClienteController {
 
 	@Autowired
@@ -41,7 +43,7 @@ public class ClienteController {
 	public String enviar(@ModelAttribute("obj") Cliente obj, RedirectAttributes ra, ModelMap model) throws Exception {
 		_clienteService.saveOrUpdate(obj, null);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/cliente/cadastrar";
+		return "redirect:/home/cliente/cadastrar";
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
@@ -55,7 +57,7 @@ public class ClienteController {
 			RedirectAttributes ra) throws Exception {
 		_clienteService.saveOrUpdate(objMerge, cod);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/cliente/consultar";
+		return "redirect:/home/cliente/consultar";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })

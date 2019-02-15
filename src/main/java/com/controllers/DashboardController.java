@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dtos.DtoMontarCardapio;
@@ -21,10 +22,11 @@ import com.servicesapi.CardapioService;
 import com.servicesapi.CategoriaService;
 
 @Controller
-@RequestMapping("dashboard")
+@RequestMapping("/home/dashboard")
+@SessionAttributes("roles")
 public class DashboardController {
 
-	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
 		// model.addAttribute("lista", _cardapioService.list(objPesquisa));
 		return new ModelAndView("dashboard/index");

@@ -78,7 +78,7 @@
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
-										href='/SpringMVC/usuario/cadastrar' type="submit"
+										href='/e-SIGDR/home/usuario/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
 										class="nc-icon nc-single-02"></i> Novo Usuário
 									</a>
@@ -113,7 +113,7 @@
 												</c:choose></td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='/SpringMVC/usuario/editar/${it.id}' type="button"
+												href='/e-SIGDR/home/usuario/editar/${it.id}' type="button"
 												class="btn btn-success btn-fill"> <i
 													class="nc-icon nc-settings-tool-66"></i>
 											</a>
@@ -170,6 +170,9 @@
 														id="novaSenha" name="novaSenha" maxlength="8"
 														minlength="6" class="form-control"
 														placeholder="Senha reset padrão: 12345678">
+
+
+
 												</div>
 											</div>
 											<p class="help-block">

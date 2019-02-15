@@ -8,46 +8,49 @@
 						e-SIGDR (RESTAURANTE)</a>
 				</div>
 				<ul class="nav">
-					<li><a class="nav-link" href="/SpringMVC/dashboard"> <i
-							class="nc-icon nc-chart-pie-35"></i>
+					<li><a class="nav-link" href="/e-SIGDR/home/dashboard/">
+							<i class="nc-icon nc-chart-pie-35"></i>
 							<p>Dashboard</p>
 					</a></li>
 
 					<li class="nav-item"><a class="nav-link"
-						href="/SpringMVC/cardapio/montar"> <i class="nc-icon nc-notes"></i>
+						href="/e-SIGDR/home/cardapio/montar"> <i
+							class="nc-icon nc-notes"></i>
 							<p>Montar Cardápio</p>
 					</a></li>
 
-					<li><a class="nav-link" href="/SpringMVC/cardapio/consultar">
-							<i class="nc-icon nc-single-copy-04"></i>
+					<li><a class="nav-link"
+						href="/e-SIGDR/home/cardapio/consultar"> <i
+							class="nc-icon nc-single-copy-04"></i>
 							<p>Lista de Cardápios</p>
 					</a></li>
 
 					<li class="nav-item"><a class="nav-link"
-						href="/SpringMVC/venda/consultar"> <i
+						href="/e-SIGDR/home/venda/consultar"> <i
 							class="nc-icon nc-cart-simple"></i>
 							<p>Gerenciar Vendas</p>
 					</a></li>
 
 					<li class="nav-item"><a class="nav-link"
-						href="/SpringMVC/agendamento/consultar"> <i
+						href="/e-SIGDR/home/agendamento/consultar"> <i
 							class="nc-icon nc-delivery-fast"></i>
 							<p>Pedidos à Entregar</p>
 					</a></li>
-					
+
 					<li class="nav-item"><a class="nav-link"
-						href="/SpringMVC/cliente/consultar"> <i
+						href="/e-SIGDR/home/cliente/consultar"> <i
 							class="nc-icon nc-single-02"></i>
 							<p>Gerenciar Clientes</p>
 					</a></li>
 
-					<li><a class="nav-link" href="/SpringMVC/alimento/consultar">
-							<i class="nc-icon nc-apple"></i>
+					<li><a class="nav-link"
+						href="/e-SIGDR/home/alimento/consultar"> <i
+							class="nc-icon nc-apple"></i>
 							<p>Gerenciar Alimentos</p>
 					</a></li>
 
 					<li class="nav-item <%--active --%>"><a class="nav-link"
-						href="/SpringMVC/usuario/consultar"> <i
+						href="/e-SIGDR/home/usuario/consultar"> <i
 							class="nc-icon nc-circle-09"></i>
 							<p>Gerenciar Usuários</p>
 					</a></li>
@@ -74,7 +77,7 @@
 						</ul>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle" href="http://example.com"
+								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false"> <span
 									class="no-icon">Minha Conta</span>
@@ -84,8 +87,8 @@
 									<a class="dropdown-item" href="#">Alterar Senha</a> <a
 										class="dropdown-item" href="#">Alterar Dados</a>
 								</div></li>
-							<li class="nav-item"><a class="nav-link" href="#pablo">
-									<span class="no-icon">Sair</span>
+							<li class="nav-item"><a class="nav-link"
+								href="/e-SIGDR/logout"> <span class="no-icon">Sair</span>
 							</a></li>
 						</ul>
 					</div>

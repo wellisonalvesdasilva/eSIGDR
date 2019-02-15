@@ -44,7 +44,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-5">
-									<a name="btnSubmit" href='/SpringMVC/alimento/consultar'
+									<a name="btnSubmit" href='/e-SIGDR/home/alimento/consultar'
 										type="button" class="btn btn-warning btn-fill"> <i
 										class="nc-icon nc-stre-left"></i> Voltar
 									</a>
@@ -54,7 +54,7 @@
 										<i class="nc-icon nc-send"></i> Salvar
 									</button>
 
-									<a name="btnSubmit" href='/SpringMVC/alimento/editar/${obj.id}'
+									<a name="btnSubmit" href='/e-SIGDR/home/alimento/editar/${obj.id}'
 										id="btnSubmit" type="submit" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</a>

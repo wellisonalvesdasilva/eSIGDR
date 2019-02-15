@@ -84,7 +84,7 @@
 										class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Cliente" id="btnSubmit"
-										href='/SpringMVC/cliente/cadastrar' type="submit"
+										href='/e-SIGDR/home/cliente/cadastrar' type="submit"
 										class="btn btn-success btn-fill btn-pesquisa"> <i
 										class="nc-icon nc-apple"></i> Cadastrar
 									</a>
@@ -118,7 +118,7 @@
 											<td class="text-center">${it.telefoneRecado}</td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='/SpringMVC/cliente/editar/${it.id}' type="button"
+												href='/e-SIGDR/home/cliente/editar/${it.id}' type="button"
 												class="btn btn-success btn-fill"> <i
 													class="nc-icon nc-settings-tool-66"></i>
 											</a>

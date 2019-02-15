@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.entities.Alimento;
@@ -18,7 +19,8 @@ import com.servicesapi.AlimentoService;
 import com.servicesapi.CategoriaService;
 
 @Controller
-@RequestMapping("alimento")
+@RequestMapping("/home/alimento")
+@SessionAttributes("roles")
 public class AlimentoController {
 
 	@Autowired
@@ -44,7 +46,7 @@ public class AlimentoController {
 	public String enviar(@ModelAttribute("obj") Alimento obj, RedirectAttributes ra, ModelMap model) throws Exception {
 		_alimentoService.saveOrUpdate(obj, null);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/alimento/cadastrar";
+		return "redirect:/home/alimento/cadastrar";
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
@@ -59,7 +61,7 @@ public class AlimentoController {
 			RedirectAttributes ra) throws Exception {
 		_alimentoService.saveOrUpdate(objMerge, cod);
 		ra.addFlashAttribute("message", "Registro editado com sucesso!");
-		return "redirect:/alimento/consultar";
+		return "redirect:/home/alimento/consultar";
 	}
 
 	@RequestMapping(value = "/excluir/{cod}", method = { RequestMethod.GET, RequestMethod.POST })

@@ -50,7 +50,7 @@
 										class="nc-icon nc-refresh-02"></i> Limpar
 									</a> <a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Alimento" id="btnSubmit"
-										href='/SpringMVC/alimento/cadastrar' type="submit"
+										href='/e-SIGDR/home/alimento/cadastrar' type="submit"
 										class="btn btn-success btn-fill btn-pesquisa"> <i
 										class="nc-icon nc-apple"></i> Novo Alimento
 									</a>
@@ -76,7 +76,7 @@
 											<td>${it.titulo}</td>
 											<td class="text-center"><a rel="tooltip"
 												data-original-title="Editar" name="btnSubmit" id="btnSubmit"
-												href='/SpringMVC/alimento/editar/${it.id}' type="button"
+												href='/e-SIGDR/home/alimento/editar/${it.id}' type="button"
 												class="btn btn-success btn-fill"> <i
 													class="nc-icon nc-settings-tool-66"></i>
 											</a>

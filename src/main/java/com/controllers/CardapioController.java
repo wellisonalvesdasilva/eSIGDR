@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dtos.DtoMontarCardapio;
@@ -23,7 +24,8 @@ import com.servicesapi.CardapioService;
 import com.servicesapi.CategoriaService;
 
 @Controller
-@RequestMapping("cardapio")
+@RequestMapping("/home/cardapio")
+@SessionAttributes("roles")
 public class CardapioController {
 
 	@Autowired
@@ -49,7 +51,7 @@ public class CardapioController {
 	public String enviar(@ModelAttribute("obj") DtoMontarCardapio obj, RedirectAttributes ra, ModelMap model) {
 		_cardapioService.criarCardapio(obj);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/cardapio/montar";
+		return "redirect:/home/cardapio/montar";
 	}
 
 	@InitBinder

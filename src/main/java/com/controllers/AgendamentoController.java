@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,7 +18,8 @@ import com.entities.Agendamento;
 import com.servicesapi.AgendamentoService;
 
 @Controller
-@RequestMapping("agendamento")
+@RequestMapping("/home/agendamento")
+@SessionAttributes("roles")
 public class AgendamentoController {
 
 	@Autowired
@@ -40,7 +42,7 @@ public class AgendamentoController {
 			throws Exception {
 		_AgendamentoService.saveOrUpdate(obj);
 		ra.addFlashAttribute("message", "Registro cadastrado com sucesso!");
-		return "redirect:/agendamento/cadastrar";
+		return "redirect:/home/agendamento/cadastrar";
 	}
 
 	@RequestMapping(value = "/editar/{cod}", method = { RequestMethod.GET })
