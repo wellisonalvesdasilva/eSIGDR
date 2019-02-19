@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daoapi.UsuarioDao;
+import com.dtos.DtoRetornoPaginado;
+import com.dtos.DtoUsuarioPaginado;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
 
@@ -23,8 +25,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	UsuarioDao _userDao;
 
-	public List<Usuario> list(Map<String, String> objPesquisa) {
-		return _userDao.list(objPesquisa);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina) {
+		return _userDao.list(pagina);
 	}
 
 	public boolean saveOrUpdate(Usuario users)

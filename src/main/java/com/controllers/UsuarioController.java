@@ -42,6 +42,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dtos.DtoRetornoPaginado;
+import com.dtos.DtoUsuarioPaginado;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
 
@@ -54,10 +56,15 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService _usuarioService;
 
-	@RequestMapping(value = "/consultar", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView consultar(@RequestParam Map<String, String> objPesquisa, ModelMap model) {
-		model.addAttribute("lista", _usuarioService.list(objPesquisa));
+	@RequestMapping(value = "/consultar", method = { RequestMethod.GET })
+	public ModelAndView consultar() {
 		return new ModelAndView("usuario/consultar");
+	}
+
+	@RequestMapping(value = "/listar/{pagina}", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina) {
+		return _usuarioService.list(pagina);
+
 	}
 
 	@RequestMapping(value = "/cadastrar", method = { RequestMethod.GET })

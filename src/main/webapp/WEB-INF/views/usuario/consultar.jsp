@@ -92,18 +92,25 @@
 							<table id="example" class="mdl-data-table" style="width: 100%">
 								<thead>
 									<tr>
-										<th class="text-center">ID</th>
-										<th class="text-center">NOME</th>
-										<th class="text-center">LOGIN</th>
-										<th class="text-center">EMAIL</th>
-										<th class="text-center">ATIVO</th>
+										<th onclick="ordenar(id)" class="text-center">ID</th>
+										<th onclick="ordenar(nome)" class="text-center">NOME</th>
+										<th onclick="ordenar(login)" class="text-center">LOGIN</th>
+										<th onclick="ordenar(email)" class="text-center">EMAIL</th>
+										<th onclick="ordenar(ativo)" class="text-center">ATIVO</th>
 										<th class="text-center">AÇÕES</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach var="it" items="${lista}" varStatus="status">
-										<tr>
-											<td class="text-center">${it.id}</td>
+								<!-- <tbody> -->
+
+								<%-- 	<c:forEach var="it" items="${lista}" varStatus="status"> --%>
+								<%-- <%-- <tr id="lista">
+										<td class="text-center">1</td>
+										<td class="text-center">1</td>
+										<td class="text-center">1</td>
+										<td class="text-center">1</td>
+										<td class="text-center">1</td>
+										<td class="text-center">1</td>
+										<td class="text-center">${it.id}</td>
 											<td>${it.nome}</td>
 											<td class="text-center">${it.login}</td>
 											<td>${it.email}</td>
@@ -129,9 +136,11 @@
 													class="btn btn-danger btn-fill">
 													<i class="nc-icon nc-simple-remove"></i>
 												</button></td>
-										</tr>
-									</c:forEach>
-								</tbody>
+									</tr>
+									
+									</c:forEach> --%>
+
+								<!-- </tbody> -->
 							</table>
 						</div>
 						<form:form id="myModal" class="modal fade" role="dialog">
@@ -225,40 +234,6 @@ $(document).ready(function() {
 		codFuncionarioAlterarSenha = cod;
 	}
 
-	// Abrir tela com o Datatable carregado
-	function dataTable() {
-		$('#example').DataTable({
-			columnDefs : [ {
-				"width" : "18%",
-				"targets" : 0,
-				className : 'mdl-data-table__cell--non-numeric'
-			}, {
-				"width" : "20%",
-				"targets" : 1,
-				className : 'mdl-data-table__cell--non-numeric'
-
-			}, {
-				"width" : "15%",
-				"targets" : 2,
-				className : 'mdl-data-table__cell--non-numeric'
-			}, {
-				"width" : "15%",
-				"targets" : 3,
-				className : 'mdl-data-table__cell--non-numeric'
-			}, {
-				"width" : "15%",
-				"targets" : 4,
-				className : 'mdl-data-table__cell--non-numeric'
-			}, {
-				"width" : "3%",
-				"targets" : 5,
-				className : 'mdl-data-table__cell--non-numeric'
-
-			}, ],
-		});
-	};
-
-	dataTable();
 
 
 	function showNotification(from, align, msg) {
@@ -330,10 +305,184 @@ $(document).ready(function() {
 			setTimeout(function() {
 			location.reload();
 			}, 1000);
-	$('#myModal').modal('hide');
-		});
+		$('#myModal').modal('hide');
+			});
 	});
+
 	
+	function dataTable() {
+		
+		$('#example').DataTable({
+	
+			columnDefs : [ {
+				"width" : "18%",
+				"targets" : 0,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "20%",
+				"targets" : 1,
+				className : 'mdl-data-table__cell--non-numeric'
+
+			}, {
+				"width" : "15%",
+				"targets" : 2,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "15%",
+				"targets" : 3,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "15%",
+				"targets" : 4,
+				className : 'mdl-data-table__cell--non-numeric'
+			}, {
+				"width" : "3%",
+				"targets" : 5,
+				className : 'mdl-data-table__cell--non-numeric'
+
+			}, ],
+		});
+	};
+
+	dataTable();
+	
+
+	function ajaxDataTable(pagina){
+		var offset = 10;
+		
+			if(!pagina){
+				pagina = 0;
+			}
+			
+			$.ajax({
+				url:'/e-SIGDR/home/usuario/listar/'+pagina,
+				type:'POST',
+				contentType: "application/json"
+				
+			}).done(function(data){
+				
+			
+				
+			if(data.lista.length > 0)
+				{							
+				  var t = $('#example').DataTable();
+				  t.destroy();
+					dataTable();
+					
+				  data.lista.forEach(function(valor){
+						//Carrega o datatable
+										t.row.add([
+										valor.id,
+										valor.nome,
+										valor.login,
+										valor.email,
+										valor.ativo,
+										valor.ativo										
+										  ] ).draw( false );
+					});		
+				}
+			// Quantidade Total de Registros
+			var textoMostrando = "";
+			var inicioContador = 0;
+
+			var currentPage = pagina + 1;
+			var numeroPaginas = data.numeroPaginas;
+			
+			if(pagina == 0){
+				inicioContador = 1 + pagina;
+			}
+			
+			if(pagina == 1) {
+				inicioContador = offset + pagina;
+			}
+			
+			if(pagina > 1) {
+				inicioContador = pagina + "1";
+			}
+			
+			var fimContador = pagina * offset;
+			var fimContadorFormatado = fimContador + data.qtdRegistroPagina;
+			textoMostrando = "Página "+ currentPage+ " de "+ numeroPaginas+ " - Mostrando de "+inicioContador*1+" até "+fimContadorFormatado + " dos "+data.qtdTotalDeRegistros + " registros encontrados."
+			
+			$('#example_info').html("");
+			$('#example_info').html(textoMostrando);
+			 
+				// Paginação
+				var ultimaPagina = data.numeroPaginas - 1;
+				$('#example_paginate').html("");
+				$('#example_paginate').append(
+						'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="ajaxDataTable(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próximo</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="ajaxDataTable('+ultimaPagina+')" type="button">Último</button></div>'		
+				);
+				
+				var i = 1;
+				while (i <= data.numeroPaginas) {
+			
+					var paginaAtual = i + 1;
+					var proximaPagina = pagina + 1;
+					var paginaAnterior = pagina - 1;
+
+					if(i > 1 && i < data.numeroPaginas){
+						if(pagina >= 2 && i+1 == proximaPagina){
+							$('#botoes2').append(
+									'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
+							);
+						}
+					}
+					if(pagina < data.numeroPaginas - 1) {
+						var ajaxProximo = 'ajaxDataTable('+proximaPagina+')';
+						$('#proximo').removeAttr("disabled");
+						$('#proximo').attr( "onclick", ajaxProximo);
+					}
+			
+					if(pagina >= 1) {
+						var ajaxAnterior = 'ajaxDataTable('+paginaAnterior+')';
+						$('#anterior').removeAttr("disabled");
+						$('#anterior').attr( "onclick", ajaxAnterior);
+					}
+					
+					
+					if(i < 2){
+					$('#botoes').append(
+							'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
+					);
+					}
+					
+					if(pagina == i){
+						var idPaginaAtual = '#'+i;
+						$('#0').removeClass("mdl-button--raised mdl-button--colored");
+						$(idPaginaAtual).addClass("mdl-button--raised mdl-button--colored");
+					} 
+					
+					if(pagina == 0){
+						$('.paginaNaoInicial').removeClass("mdl-button--raised mdl-button--colored");
+						$('#0').addClass("mdl-button--raised mdl-button--colored");
+					}
+					
+					if(pagina != ultimaPagina){
+						$('#ultimaPagina').removeAttr("disabled");
+					}
+										
+					i++;
+						
+					}
+				
+				if(data.lista.length > 1 && pagina < ultimaPagina){
+					$('#maisPagina').append(
+							'<button class="mdl-button" type="button" id="continue" aria-controls="example">...</button>'		
+					);
+				}
+				
+				if(pagina > 1){
+					$('#menosPagina').append(
+							'<button class="mdl-button" type="button" id="voltar" aria-controls="example">...</button>'		
+					);
+				}
+				
+				});		
+		
+		}
+			ajaxDataTable();
+		
 	
 </script>
 </body>

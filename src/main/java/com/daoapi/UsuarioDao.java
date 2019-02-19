@@ -4,11 +4,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
+import com.dtos.DtoRetornoPaginado;
+import com.dtos.DtoUsuarioPaginado;
 import com.entities.Usuario;
 
 public interface UsuarioDao {
 
-	public List<Usuario> list(Map<String, String> objPesquisa);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina);
 
 	Usuario getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException;
 
