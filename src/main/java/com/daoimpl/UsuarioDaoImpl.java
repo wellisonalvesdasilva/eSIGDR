@@ -23,7 +23,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	SessionFactory session;
 
 	@SuppressWarnings({ "unchecked", "null" })
-	public DtoRetornoPaginado<Usuario> list(Integer pagina) {
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar) {
 
 		// Quantidade á ser pulada
 		Integer offset = 10;
@@ -38,11 +38,21 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		// Quantidade de Registros Encontrados na Página
 		inst.setQtdRegistroPagina(session.getCurrentSession().createQuery("from Usuario").setMaxResults(offset)
 				.setFirstResult(pagina * offset).list().size());
-		
-		// Obter Lista para Retorno
-		inst.setLista(session.getCurrentSession().createQuery("from Usuario").setMaxResults(offset)
-				.setFirstResult(pagina * offset).list());
 
+		// Obter Lista para Retorno
+
+		String orderBy = "";
+		if (colunaParaOrdenar != null && colunaParaOrdenar != "") {
+			orderBy = "as u order by u."+colunaParaOrdenar+" desc";
+		}
+
+		if(orderBy != ""){
+			inst.setLista(session.getCurrentSession().createQuery("from Usuario "+orderBy).setMaxResults(offset)
+					.setFirstResult(pagina * offset).list());
+		}else{
+		inst.setLista(session.getCurrentSession().createQuery("from Usuario as u order by u.id asc").setMaxResults(offset)
+				.setFirstResult(pagina * offset).list());
+		}
 		if (quantidade > 0) {
 			Double quantidadeFormatada = quantidade.doubleValue() / offset;
 			inst.setNumeroPaginas((int) Math.ceil(quantidadeFormatada));

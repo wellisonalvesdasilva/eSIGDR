@@ -44,6 +44,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dtos.DtoRetornoPaginado;
 import com.dtos.DtoUsuarioPaginado;
+import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
 
@@ -62,8 +63,10 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/listar/{pagina}", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina) {
-		return _usuarioService.list(pagina);
+	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina,
+			@RequestBody(required = false) String colunaParaOrdenar) {
+
+		return _usuarioService.list(pagina, colunaParaOrdenar);
 
 	}
 

@@ -21,7 +21,7 @@
 						<h4 class="card-title">Gerenciamento de Usuários</h4>
 					</div>
 					<div class="card-body">
-						<form:form method="POST" cssClass='form-horizontal'>
+						<form>
 							<div class="row">
 								<div class="col-md-2 pr-1">
 									<div class="form-group">
@@ -67,7 +67,7 @@
 							<div class="row">
 								<div class="col-md-6"></div>
 								<div class="col-md-6 text-right">
-									<button name="btnSubmit" type="submit" id="btnSubmit"
+									<button name="btnSubmit" id="btnSubmit" onclick="pesquisar()"
 										type="button" rel="tooltip" data-original-title="Pesquisar"
 										class="btn btn-info btn-fill">
 										<i class="nc-icon nc-zoom-split"></i> Pesquisar
@@ -85,18 +85,18 @@
 								</div>
 							</div>
 							<div class="clearfix"></div>
-						</form:form>
+						</form>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<table id="example" class="mdl-data-table" style="width: 100%">
 								<thead>
 									<tr>
-										<th onclick="ordenar(id)" class="text-center">ID</th>
-										<th onclick="ordenar(nome)" class="text-center">NOME</th>
-										<th onclick="ordenar(login)" class="text-center">LOGIN</th>
-										<th onclick="ordenar(email)" class="text-center">EMAIL</th>
-										<th onclick="ordenar(ativo)" class="text-center">ATIVO</th>
+										<th class="text-center" onclick="ordenarColuna('id')">ID</th>
+										<th onclick="ordenarColuna('nome')" class="text-center">NOME</th>
+										<th onclick="ordenarColuna('login')" class="text-center">LOGIN</th>
+										<th onclick="ordenarColuna('email')" class="text-center">EMAIL</th>
+										<th onclick="ordenarColuna('ativo')" class="text-center">ATIVO</th>
 										<th class="text-center">AÇÕES</th>
 									</tr>
 								</thead>
@@ -217,9 +217,16 @@ $(document).ready(function() {
 	
 	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
 		valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
-	
 		})
 		
+	// Pesquisar
+	function pesquisar(){
+		var dto = new Object();
+		dto.cod = $('#cod').val(); 
+		dto.nome = $('#nome').val(); 
+		ajaxDataTable('', '', dto);
+	}
+
 	// Abrir Modal "Excluir Funcionário"
 	var codFuncionario = 0;
 	function excluirFuncionario(cod) {
@@ -233,7 +240,6 @@ $(document).ready(function() {
 		$('#modalResetaSenha').modal();
 		codFuncionarioAlterarSenha = cod;
 	}
-
 
 
 	function showNotification(from, align, msg) {
@@ -253,7 +259,7 @@ $(document).ready(function() {
 		});
 	}
 	
-	
+	// Sucesso
 	var sucessoMessage = "${message}";
 	if (sucessoMessage != "") {
 		showNotification('top', 'right', sucessoMessage);
@@ -313,11 +319,10 @@ $(document).ready(function() {
 	function dataTable() {
 		
 		$('#example').DataTable({
-	
-			columnDefs : [ {
+				columnDefs : [ {
 				"width" : "18%",
 				"targets" : 0,
-				className : 'mdl-data-table__cell--non-numeric'
+				className : 'dt-body-center'
 			}, {
 				"width" : "20%",
 				"targets" : 1,
@@ -343,25 +348,46 @@ $(document).ready(function() {
 			}, ],
 		});
 	};
-
-	dataTable();
 	
+	/* dataTable(); */
+	
+	// Ordenação
+	var pagineAtual = "";
+	var colunaParaOrdenarAsc = "";
+	var colunaParaOrdenarDesc = "";
+	function ordenarColuna(coluna) {
+		
+		if(colunaParaOrdenarAsc != coluna){
+			colunaParaOrdenarAsc = coluna;
+		} else {
+			colunaParaOrdenarAsc = colunaParaOrdenarDesc;
+		}
+		ajaxDataTable(pagineAtual, colunaParaOrdenarAsc);
+	}
 
-	function ajaxDataTable(pagina){
-		var offset = 10;
+	
+	// Construção das linhas da grid
+	function ajaxDataTable(pagina, colunaParaOrdenar){
+
+		// Definindo tamanho esperado pelo Front
+			var offset = 10;
+		
+			if(!colunaParaOrdenar){
+				colunaParaOrdenar = colunaParaOrdenarAsc;
+			}
 		
 			if(!pagina){
 				pagina = 0;
 			}
 			
+			// Chamadando Ajax
 			$.ajax({
 				url:'/e-SIGDR/home/usuario/listar/'+pagina,
 				type:'POST',
+				data: colunaParaOrdenar,
 				contentType: "application/json"
 				
 			}).done(function(data){
-				
-			
 				
 			if(data.lista.length > 0)
 				{							
@@ -370,21 +396,21 @@ $(document).ready(function() {
 					dataTable();
 					
 				  data.lista.forEach(function(valor){
-						//Carrega o datatable
+						//Carregando o datatables
 										t.row.add([
 										valor.id,
 										valor.nome,
 										valor.login,
 										valor.email,
 										valor.ativo,
-										valor.ativo										
+										valor.ativo									
 										  ] ).draw( false );
 					});		
 				}
-			// Quantidade Total de Registros
+			
+			// Parametrizações iniciais baseada no retorno do back-end
 			var textoMostrando = "";
 			var inicioContador = 0;
-
 			var currentPage = pagina + 1;
 			var numeroPaginas = data.numeroPaginas;
 			
@@ -400,27 +426,28 @@ $(document).ready(function() {
 				inicioContador = pagina + "1";
 			}
 			
+			// Formatando quantidade de registros
 			var fimContador = pagina * offset;
 			var fimContadorFormatado = fimContador + data.qtdRegistroPagina;
 			textoMostrando = "Página "+ currentPage+ " de "+ numeroPaginas+ " - Mostrando de "+inicioContador*1+" até "+fimContadorFormatado + " dos "+data.qtdTotalDeRegistros + " registros encontrados."
-			
 			$('#example_info').html("");
 			$('#example_info').html(textoMostrando);
 			 
-				// Paginação
+				// Montando Paginação chumbando a página 1, opção [Próximo e Último]
 				var ultimaPagina = data.numeroPaginas - 1;
 				$('#example_paginate').html("");
 				$('#example_paginate').append(
 						'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="ajaxDataTable(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próximo</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="ajaxDataTable('+ultimaPagina+')" type="button">Último</button></div>'		
 				);
 				
+				// Percorrendo o numero retornado pelo back para criação das próximas páginas dinamicamente
 				var i = 1;
 				while (i <= data.numeroPaginas) {
-			
 					var paginaAtual = i + 1;
 					var proximaPagina = pagina + 1;
 					var paginaAnterior = pagina - 1;
 
+					// Páginas que serão atualizadas utilizando de uma mesma posição
 					if(i > 1 && i < data.numeroPaginas){
 						if(pagina >= 2 && i+1 == proximaPagina){
 							$('#botoes2').append(
@@ -428,25 +455,29 @@ $(document).ready(function() {
 							);
 						}
 					}
+
+					// Atualizando o parâmetro da opção Próximo
 					if(pagina < data.numeroPaginas - 1) {
 						var ajaxProximo = 'ajaxDataTable('+proximaPagina+')';
 						$('#proximo').removeAttr("disabled");
 						$('#proximo').attr( "onclick", ajaxProximo);
 					}
 			
+					// Atualizando o parâmetro da opção Anterior
 					if(pagina >= 1) {
 						var ajaxAnterior = 'ajaxDataTable('+paginaAnterior+')';
 						$('#anterior').removeAttr("disabled");
 						$('#anterior').attr( "onclick", ajaxAnterior);
 					}
 					
-					
+					// Paginas que serão fixas
 					if(i < 2){
 					$('#botoes').append(
 							'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
 					);
 					}
 					
+					// Inserindo/Atualizando cor da página selecionada
 					if(pagina == i){
 						var idPaginaAtual = '#'+i;
 						$('#0').removeClass("mdl-button--raised mdl-button--colored");
@@ -458,32 +489,39 @@ $(document).ready(function() {
 						$('#0').addClass("mdl-button--raised mdl-button--colored");
 					}
 					
+					// Desabilitando a opção [Último], quando assim é o caso
 					if(pagina != ultimaPagina){
 						$('#ultimaPagina').removeAttr("disabled");
 					}
-										
+						
+					// Incrementando
 					i++;
 						
 					}
 				
+				// Inserindo indicação de que a mais página a ser visualizada na opção [Próximo]
 				if(data.lista.length > 1 && pagina < ultimaPagina){
 					$('#maisPagina').append(
 							'<button class="mdl-button" type="button" id="continue" aria-controls="example">...</button>'		
 					);
 				}
 				
+				// Inserindo indicação de que a mais página a ser visualizada na opção [Anterior]
 				if(pagina > 1){
 					$('#menosPagina').append(
 							'<button class="mdl-button" type="button" id="voltar" aria-controls="example">...</button>'		
 					);
 				}
 				
+				// Utilizado na paginação
+				pagineAtual = pagina;
 				});		
-		
-		}
+			}
+
+		// Chamada da função executável
 			ajaxDataTable();
 		
-	
+			
 </script>
 </body>
 </html>

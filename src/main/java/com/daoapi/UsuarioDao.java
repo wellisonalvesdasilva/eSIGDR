@@ -10,7 +10,7 @@ import com.entities.Usuario;
 
 public interface UsuarioDao {
 
-	public DtoRetornoPaginado<Usuario> list(Integer pagina);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar);
 
 	Usuario getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException;
 

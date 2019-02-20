@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.daoapi.UsuarioDao;
 import com.dtos.DtoRetornoPaginado;
 import com.dtos.DtoUsuarioPaginado;
+import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
 
@@ -25,8 +26,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	UsuarioDao _userDao;
 
-	public DtoRetornoPaginado<Usuario> list(Integer pagina) {
-		return _userDao.list(pagina);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar) {
+		return _userDao.list(pagina, colunaParaOrdenar);
 	}
 
 	public boolean saveOrUpdate(Usuario users)

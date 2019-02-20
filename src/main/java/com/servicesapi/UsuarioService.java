@@ -7,10 +7,11 @@ import java.util.Map;
 
 import com.dtos.DtoRetornoPaginado;
 import com.dtos.DtoUsuarioPaginado;
+import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 
 public interface UsuarioService {
-	public DtoRetornoPaginado<Usuario> list(Integer pagina);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar);
 
 	public boolean saveOrUpdate(Usuario users)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;
