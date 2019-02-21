@@ -27,7 +27,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	UsuarioDao _userDao;
 
 	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto) {
-		return _userDao.list(pagina, dto);
+		DtoRetornoPaginado<Usuario> retorno = _userDao.list(pagina, dto);
+		return retorno;
 	}
 
 	public boolean saveOrUpdate(Usuario users)

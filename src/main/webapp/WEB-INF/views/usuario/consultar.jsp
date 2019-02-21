@@ -214,12 +214,11 @@
 </body>
 <jsp:include page="../template/scripts-rodape.jsp" />
 <script>
-$(document).ready(function() {		
-	
-//	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
-	//	valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
-		})
+	$(document).ready(function() {
 
+		//	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
+		//	valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
+	})
 
 	// Abrir Modal "Excluir Funcionário"
 	var codFuncionario = 0;
@@ -227,14 +226,13 @@ $(document).ready(function() {
 		$('#myModal').modal();
 		codFuncionario = cod;
 	}
-	
+
 	// Abrir Modal "Alterar Senha"
 	var codFuncionarioAlterarSenha = 0;
 	function resetarSenha(cod) {
 		$('#modalResetaSenha').modal();
 		codFuncionarioAlterarSenha = cod;
 	}
-
 
 	function showNotification(from, align, msg) {
 		color = Math.floor((Math.random() * 5));
@@ -252,7 +250,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
+
 	// Sucesso
 	var sucessoMessage = "${message}";
 	if (sucessoMessage != "") {
@@ -260,60 +258,58 @@ $(document).ready(function() {
 	}
 
 	// Evento Alterar Senha
-		$('#btnConfirmarResetSenha').click(function(){
-			$('#btnConfirmarResetSenha').attr('disabled', 'disabled');
-			$('#btnCancelarResetSenha').attr('disabled', 'disabled');
-			var novaSenha = "0";
-			if($('#novaSenha').val())
-				{
-					novaSenha = $('#novaSenha').val();
-				}
-			$.ajax({
-				url:'usuario/alterarSenha/'+codFuncionarioAlterarSenha,
-				type:'POST',
-				contentType: "application/json",
-				data: novaSenha
-			}).done(function(data){
-				showNotification('top', 'right', 'Senha alterada com sucesso!');
-				$('#btnConfirmarResetSenha').attr('disabled', false);
-				$('#btnCancelarResetSenha').attr('disabled', false);
-				$('#modalResetaSenha').modal('hide');
-				}).fail(function(data){
-					showNotification('top', 'right', 'Erro inesperado.');							
-			});		
-		});			
-		
+	$('#btnConfirmarResetSenha').click(function() {
+		$('#btnConfirmarResetSenha').attr('disabled', 'disabled');
+		$('#btnCancelarResetSenha').attr('disabled', 'disabled');
+		var novaSenha = "0";
+		if ($('#novaSenha').val()) {
+			novaSenha = $('#novaSenha').val();
+		}
+		$.ajax({
+			url : 'usuario/alterarSenha/' + codFuncionarioAlterarSenha,
+			type : 'POST',
+			contentType : "application/json",
+			data : novaSenha
+		}).done(function(data) {
+			showNotification('top', 'right', 'Senha alterada com sucesso!');
+			$('#btnConfirmarResetSenha').attr('disabled', false);
+			$('#btnCancelarResetSenha').attr('disabled', false);
+			$('#modalResetaSenha').modal('hide');
+		}).fail(function(data) {
+			showNotification('top', 'right', 'Erro inesperado.');
+		});
+	});
+
 	// Evento Excluir Funcionário
 	$('#btnConfirmar').click(function() {
 		$('#btnConfirmar').attr('disabled', 'disabled');
 		$('#btnCancelar').attr('disabled', 'disabled');
 		$.ajax({
-			url : 'excluir/'+codFuncionario,
+			url : 'excluir/' + codFuncionario,
 			type : 'POST',
-			contentType: "application/json"
+			contentType : "application/json"
 		}).done(function(data) {
 			console.log(data);
 			$('#myModal').modal('hide');
 			showNotification('top', 'right', 'Registro excluído com sucesso!');
 			setTimeout(function() {
-			location.reload();
+				location.reload();
 			}, 1000);
 
 		}).fail(function(data) {
 			$('.loader').hide();
 			showNotification('top', 'right', 'Erro ao excluir o registro!');
 			setTimeout(function() {
-			location.reload();
+				location.reload();
 			}, 1000);
-		$('#myModal').modal('hide');
-			});
+			$('#myModal').modal('hide');
+		});
 	});
 
-	
 	function dataTable() {
-		
+
 		$('#example').DataTable({
-				columnDefs : [ {
+			columnDefs : [ {
 				"width" : "18%",
 				"targets" : 0,
 				className : 'dt-body-center'
@@ -348,8 +344,8 @@ $(document).ready(function() {
 	var colunaParaOrdenarAsc = "";
 	var colunaParaOrdenarDesc = "";
 	function ordenarColuna(coluna) {
-		
-		if(colunaParaOrdenarAsc != coluna){
+
+		if (colunaParaOrdenarAsc != coluna) {
 			colunaParaOrdenarAsc = coluna;
 		} else {
 			colunaParaOrdenarAsc = colunaParaOrdenarDesc;
@@ -357,192 +353,229 @@ $(document).ready(function() {
 		ajaxDataTable(pagineAtual, colunaParaOrdenarAsc);
 	}
 
-	
 	// Pesquisar
 	var dto = new Object();
-	function pesquisar(){
-		dto.cod = $('#id').val(); 
+	function pesquisar() {
+		dto.cod = $('#id').val();
 		dto.nome = $('#nome').val();
 		dto.login = $('#login').val();
-		dto.ativo = $('#ativo').val(); 
-		dto.email = $('#email').val(); 
+		dto.ativo = $('#ativo').val();
+		dto.email = $('#email').val();
 		ajaxDataTable();
 	}
 
-
-	function limpar(){
-		$('.filtro').val() = "";
-		ajaxDataTable();
-	}	
-	
-	
 	// Construção das linhas da grid
-	function ajaxDataTable(pagina, colunaParaOrdenar){
+	function ajaxDataTable(pagina, colunaParaOrdenar) {
 
-
-		
 		// Definindo tamanho esperado pelo Front
-			var offset = 10;
-		
-			if(!colunaParaOrdenar){
-				colunaParaOrdenar = colunaParaOrdenarAsc;
-			}
-		
-			if(!pagina){
-				pagina = 0;
-			}
-			
-			dto.colunaParaOrdenar = colunaParaOrdenar;
-			
-			// Chamadando Ajax
-			$.ajax({
-				url:'/e-SIGDR/home/usuario/listar/'+pagina,
-				type:'POST',
-				data: JSON.stringify(dto),
-				dataType: "json",
-				contentType: "application/json; charset=utf-8"
-			}).done(function(data){
-					var t = $('#example').DataTable();
-					t.destroy();
-					dataTable();
-					
-					
-					if(data.lista.length > 0)
-					{	
-				  data.lista.forEach(function(valor){
-						//Carregando o datatables
-										t.row.add([
-										valor.id,
-										valor.nome,
-										valor.login,
-										valor.email,
-										valor.ativo,
-										valor.ativo									
-										  ] ).draw( false );
-					});	
-				  
-				
-			
-			// Parametrizações iniciais baseada no retorno do back-end
-			var textoMostrando = "";
-			var inicioContador = 0;
-			var currentPage = pagina + 1;
-			var numeroPaginas = data.numeroPaginas;
-			
-			if(pagina == 0){
-				inicioContador = 1 + pagina;
-			}
-			
-			if(pagina == 1) {
-				inicioContador = offset + pagina;
-			}
-			
-			if(pagina > 1) {
-				inicioContador = pagina + "1";
-			}
-			
-			// Formatando quantidade de registros
-			var fimContador = pagina * offset;
-			var fimContadorFormatado = fimContador + data.qtdRegistroPagina;
-			textoMostrando = "Página "+ currentPage+ "/"+ numeroPaginas+ " - Mostrando "+inicioContador*1+"/"+fimContadorFormatado + " de "+data.qtdTotalDeRegistros + " registro(s)."
-			$('#example_info').html("");
-			$('#example_info').html(textoMostrando);
-			 
-				// Montando Paginação chumbando a página 1, opção [Próximo e Último]
-				var ultimaPagina = data.numeroPaginas - 1;
-				$('#example_paginate').html("");
-				$('#example_paginate').append(
-						'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="ajaxDataTable(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próximo</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="ajaxDataTable('+ultimaPagina+')" type="button">Último</button></div>'		
-				);
-				
-				// Percorrendo o numero retornado pelo back para criação das próximas páginas dinamicamente
-				var i = 1;
-				while (i <= data.numeroPaginas) {
-					var paginaAtual = i + 1;
-					var proximaPagina = pagina + 1;
-					var paginaAnterior = pagina - 1;
+		var offset = 10;
 
-					// Páginas que serão atualizadas utilizando de uma mesma posição
-					if(i > 1 && i < data.numeroPaginas){
-						if(pagina >= 2 && i+1 == proximaPagina){
-							$('#botoes2').append(
-									'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
-							);
-						}
-					}
+		if (!colunaParaOrdenar) {
+			colunaParaOrdenar = colunaParaOrdenarAsc;
+		}
 
-					// Atualizando o parâmetro da opção Próximo
-					if(pagina < data.numeroPaginas - 1) {
-						var ajaxProximo = 'ajaxDataTable('+proximaPagina+')';
-						$('#proximo').removeAttr("disabled");
-						$('#proximo').attr( "onclick", ajaxProximo);
-					}
-			
-					// Atualizando o parâmetro da opção Anterior
-					if(pagina >= 1) {
-						var ajaxAnterior = 'ajaxDataTable('+paginaAnterior+')';
-						$('#anterior').removeAttr("disabled");
-						$('#anterior').attr( "onclick", ajaxAnterior);
-					}
-					
-					if(i == 1 && data.qtdTotalDeRegistros > offset){
-					$('#botoes').append(
-							'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
-					);
-					}
-					
-					// Inserindo/Atualizando cor da página selecionada
-					if(pagina == i){
-						var idPaginaAtual = '#'+i;
-						$('#0').removeClass("mdl-button--raised mdl-button--colored");
-						$(idPaginaAtual).addClass("mdl-button--raised mdl-button--colored");
-					} 
-					
-					if(pagina == 0){
-						$('.paginaNaoInicial').removeClass("mdl-button--raised mdl-button--colored");
-						$('#0').addClass("mdl-button--raised mdl-button--colored");
-					}
-					
-					// Desabilitando a opção [Último], quando assim é o caso
-					if(pagina != ultimaPagina){
-						$('#ultimaPagina').removeAttr("disabled");
-					}
-						
-					// Incrementando
-					i++;
-						
-					}
-				
-				// Inserindo indicação de que a mais página a ser visualizada na opção [Próximo]
-				if(data.lista.length > 1 && pagina < ultimaPagina){
-					$('#maisPagina').append(
-							'<button class="mdl-button" type="button" id="continue" aria-controls="example">...</button>'		
-					);
-				}
-				
-				// Inserindo indicação de que a mais página a ser visualizada na opção [Anterior]
-				if(pagina > 1){
-					$('#menosPagina').append(
-							'<button class="mdl-button" type="button" id="voltar" aria-controls="example">...</button>'		
-					);
-				}
-				
-				// Utilizado na paginação
-				pagineAtual = pagina;
-				
-					} 
-					
-					
-				});		
-			}
-	
-	
+		if (!pagina) {
+			pagina = 0;
+		}
 
+		dto.colunaParaOrdenar = colunaParaOrdenar;
 
-		// Chamada da função executável
-			ajaxDataTable();
-		
-			
+		// Chamadando Ajax
+		$
+				.ajax({
+					url : '/e-SIGDR/home/usuario/listar/' + pagina,
+					type : 'POST',
+					data : JSON.stringify(dto),
+					dataType : "json",
+					contentType : "application/json; charset=utf-8"
+				})
+				.done(
+						function(data) {
+							var t = $('#example').DataTable();
+							//t.destroy();
+							t.clear();
+							//					dataTable();
+							if (data.lista.length > 0) {
+								data.lista.forEach(function(valor) {
+									//Carregando o datatables
+									t.row.add(
+											[
+													'<div class="text-center">'
+															+ valor.id
+															+ '</div>',
+													'<div class="text-left">'
+															+ valor.nome
+															+ '</div>',
+													'<div class="text-left">'
+															+ valor.login
+															+ '</div>',
+													'<div class="text-left">'
+															+ valor.email
+															+ '</div>',
+													'<div class="text-center">'
+															+ valor.ativo
+															+ '</div>',
+													'<div class="text-center">'
+															+ valor.ativo
+															+ '</div>' ]).draw(
+											false);
+								});
+
+								// Parametrizações iniciais baseada no retorno do back-end
+								var textoMostrando = "";
+								var inicioContador = 0;
+								var currentPage = pagina + 1;
+								var numeroPaginas = data.numeroPaginas;
+
+								if (pagina == 0) {
+									inicioContador = 1 + pagina;
+								}
+
+								if (pagina == 1) {
+									inicioContador = offset + pagina;
+								}
+
+								if (pagina > 1) {
+									inicioContador = pagina + "1";
+								}
+
+								// Formatando quantidade de registros
+								var fimContador = pagina * offset;
+								var fimContadorFormatado = fimContador
+										+ data.qtdRegistroPagina;
+								textoMostrando = "Página " + currentPage
+										+ " de " + numeroPaginas
+										+ " - Mostrando " + inicioContador * 1
+										+ " de " + fimContadorFormatado
+										+ " dos " + data.qtdTotalDeRegistros
+										+ " registro(s) encontrado(s)."
+								$('#example_info').html("");
+								$('#example_info').html(textoMostrando);
+
+								// Montando Paginação chumbando a página 1, opção [Próximo e Último]
+								var ultimaPagina = data.numeroPaginas - 1;
+								$('#example_paginate').html("");
+								$('#example_paginate')
+										.append(
+												'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="ajaxDataTable(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próximo</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="ajaxDataTable('
+														+ ultimaPagina
+														+ ')" type="button">Último</button></div>');
+
+								// Percorrendo o numero retornado pelo back para criação das próximas páginas dinamicamente
+								var i = 1;
+								while (i <= data.numeroPaginas) {
+									var paginaAtual = i + 1;
+									var proximaPagina = pagina + 1;
+									var paginaAnterior = pagina - 1;
+
+									// Páginas que serão atualizadas utilizando de uma mesma posição
+									if (i > 1 && i < data.numeroPaginas) {
+										if (pagina >= 2
+												&& i + 1 == proximaPagina) {
+											$('#botoes2')
+													.append(
+															'<button class="mdl-button paginaNaoInicial" type="button" id="'
+																	+ i
+																	+ '" onclick="ajaxDataTable('
+																	+ i
+																	+ ')" aria-controls="example">'
+																	+ paginaAtual
+																	+ '</button>');
+										}
+									}
+
+									// Atualizando o parâmetro da opção Próximo
+									if (pagina < data.numeroPaginas - 1) {
+										var ajaxProximo = 'ajaxDataTable('
+												+ proximaPagina + ')';
+										$('#proximo').removeAttr("disabled");
+										$('#proximo').attr("onclick",
+												ajaxProximo);
+									}
+
+									// Atualizando o parâmetro da opção Anterior
+									if (pagina >= 1) {
+										var ajaxAnterior = 'ajaxDataTable('
+												+ paginaAnterior + ')';
+										$('#anterior').removeAttr("disabled");
+										$('#anterior').attr("onclick",
+												ajaxAnterior);
+									}
+
+									if (i == 1
+											&& data.qtdTotalDeRegistros > offset) {
+										$('#botoes')
+												.append(
+														'<button class="mdl-button paginaNaoInicial" type="button" id="'
+																+ i
+																+ '" onclick="ajaxDataTable('
+																+ i
+																+ ')" aria-controls="example">'
+																+ paginaAtual
+																+ '</button>');
+									}
+
+									// Inserindo/Atualizando cor da página selecionada
+									if (pagina == i) {
+										var idPaginaAtual = '#' + i;
+										$('#0')
+												.removeClass(
+														"mdl-button--raised mdl-button--colored");
+										$(idPaginaAtual)
+												.addClass(
+														"mdl-button--raised mdl-button--colored");
+									}
+
+									if (pagina == 0) {
+										$('.paginaNaoInicial')
+												.removeClass(
+														"mdl-button--raised mdl-button--colored");
+										$('#0')
+												.addClass(
+														"mdl-button--raised mdl-button--colored");
+									}
+
+									// Desabilitando a opção [Último], quando assim é o caso
+									if (pagina != ultimaPagina) {
+										$('#ultimaPagina').removeAttr(
+												"disabled");
+									}
+
+									// Incrementando
+									i++;
+								}
+
+								// Inserindo indicação de que a mais página a ser visualizada na opção [Próximo]
+								if (data.lista.length > 1
+										&& pagina < ultimaPagina) {
+									$('#maisPagina')
+											.append(
+													'<button class="mdl-button" type="button" id="continue" aria-controls="example">...</button>');
+								}
+
+								// Inserindo indicação de que a mais página a ser visualizada na opção [Anterior]
+								if (pagina > 1) {
+									$('#menosPagina')
+											.append(
+													'<button class="mdl-button" type="button" id="voltar" aria-controls="example">...</button>');
+								}
+
+								// Utilizado na paginação
+								pagineAtual = pagina;
+								
+								// Caso nenhum registro tenha sido encontrado
+							} else {
+								// Destroy para aparesentar mensagem com "Nenhum registro encontrado"
+								t.destroy();
+								dataTable();
+							}
+							
+							
+						});
+	}
+
+	// Chamada da função executável
+	ajaxDataTable();
 </script>
 </body>
 </html>

@@ -66,7 +66,9 @@ public class UsuarioController {
 	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina,
 			@RequestBody DtoUsuarioPesquisa dto) {
 
+		
 		return _usuarioService.list(pagina,dto);
+	
 
 	}
 
