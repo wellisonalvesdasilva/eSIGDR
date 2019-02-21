@@ -26,8 +26,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	UsuarioDao _userDao;
 
-	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar) {
-		return _userDao.list(pagina, colunaParaOrdenar);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto) {
+		return _userDao.list(pagina, dto);
 	}
 
 	public boolean saveOrUpdate(Usuario users)

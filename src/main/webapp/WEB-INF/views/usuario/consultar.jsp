@@ -27,14 +27,14 @@
 									<div class="form-group">
 										<label>Código</label> <input id="id" maxlength="5"
 											minlength="1" value='${(fn:escapeXml(param.id))}' name="id"
-											type="text" class="form-control" placeholder="Código">
+											type="text" class="form-control filtro" placeholder="Código">
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label>Nome</label> <input type="text" maxlength="40"
 											minlength="1" value='${(fn:escapeXml(param.nome))}' id="nome"
-											name="nome" class="form-control" placeholder="Nome">
+											name="nome" class="form-control filtro" placeholder="Nome">
 									</div>
 								</div>
 								<div class="col-md-2">
@@ -42,16 +42,16 @@
 										<label>Login</label> <input
 											value='${(fn:escapeXml(param.login))}' maxlength="35"
 											minlength="1" type="text" id="login" name="login"
-											class="form-control" placeholder="Login">
+											class="form-control filtro" placeholder="Login">
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
 										<label>Ativo</label> <select name="ativo" id="ativo"
-											class="form-control">
+											class="form-control filtro">
 											<option value="">Selecione</option>
 											<option value="1">Sim</option>
-											<option value="2">Não</option>
+											<option value="0">Não</option>
 										</select>
 									</div>
 								</div>
@@ -59,7 +59,7 @@
 									<div class="form-group">
 										<label>Email</label> <input id="email" maxlength="35"
 											minlength="1" value='${(fn:escapeXml(param.email))}'
-											name="email" type="text" class="form-control"
+											name="email" type="text" class="form-control filtro"
 											placeholder="E-mail">
 									</div>
 								</div>
@@ -72,11 +72,12 @@
 										class="btn btn-info btn-fill">
 										<i class="nc-icon nc-zoom-split"></i> Pesquisar
 									</button>
-									<a name="btnLimpar" rel="tooltip"
-										data-original-title="Limpar Campos" href='consultar'
-										id="btnLimpar" type="submit" class="btn btn-info btn-fill">
+									<button name="btnLimpar" rel="tooltip"
+										data-original-title="Limpar Campos e Pesquisa" id="btnLimpar"
+										type="button" onclick="limpar()" class="btn btn-info btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
-									</a> <a name="btnSubmit" rel="tooltip"
+									</button>
+									<a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
 										href='/e-SIGDR/home/usuario/cadastrar' type="submit"
 										class="btn btn-success btn-fill"> <i
@@ -215,17 +216,10 @@
 <script>
 $(document).ready(function() {		
 	
-	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
-		valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
+//	var valor = JSON.stringify(${(fn:escapeXml(param.ativo))});
+	//	valor ? document.getElementById("ativo").value = valor : document.getElementById("ativo").value = '';
 		})
-		
-	// Pesquisar
-	function pesquisar(){
-		var dto = new Object();
-		dto.cod = $('#cod').val(); 
-		dto.nome = $('#nome').val(); 
-		ajaxDataTable('', '', dto);
-	}
+
 
 	// Abrir Modal "Excluir Funcionário"
 	var codFuncionario = 0;
@@ -348,10 +342,8 @@ $(document).ready(function() {
 			}, ],
 		});
 	};
-	
-	/* dataTable(); */
-	
-	// Ordenação
+
+	// Ordenar
 	var pagineAtual = "";
 	var colunaParaOrdenarAsc = "";
 	var colunaParaOrdenarDesc = "";
@@ -366,9 +358,29 @@ $(document).ready(function() {
 	}
 
 	
+	// Pesquisar
+	var dto = new Object();
+	function pesquisar(){
+		dto.cod = $('#id').val(); 
+		dto.nome = $('#nome').val();
+		dto.login = $('#login').val();
+		dto.ativo = $('#ativo').val(); 
+		dto.email = $('#email').val(); 
+		ajaxDataTable();
+	}
+
+
+	function limpar(){
+		$('.filtro').val() = "";
+		ajaxDataTable();
+	}	
+	
+	
 	// Construção das linhas da grid
 	function ajaxDataTable(pagina, colunaParaOrdenar){
 
+
+		
 		// Definindo tamanho esperado pelo Front
 			var offset = 10;
 		
@@ -380,21 +392,23 @@ $(document).ready(function() {
 				pagina = 0;
 			}
 			
+			dto.colunaParaOrdenar = colunaParaOrdenar;
+			
 			// Chamadando Ajax
 			$.ajax({
 				url:'/e-SIGDR/home/usuario/listar/'+pagina,
 				type:'POST',
-				data: colunaParaOrdenar,
-				contentType: "application/json"
-				
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json; charset=utf-8"
 			}).done(function(data){
-				
-			if(data.lista.length > 0)
-				{							
-				  var t = $('#example').DataTable();
-				  t.destroy();
+					var t = $('#example').DataTable();
+					t.destroy();
 					dataTable();
 					
+					
+					if(data.lista.length > 0)
+					{	
 				  data.lista.forEach(function(valor){
 						//Carregando o datatables
 										t.row.add([
@@ -405,8 +419,9 @@ $(document).ready(function() {
 										valor.ativo,
 										valor.ativo									
 										  ] ).draw( false );
-					});		
-				}
+					});	
+				  
+				
 			
 			// Parametrizações iniciais baseada no retorno do back-end
 			var textoMostrando = "";
@@ -429,7 +444,7 @@ $(document).ready(function() {
 			// Formatando quantidade de registros
 			var fimContador = pagina * offset;
 			var fimContadorFormatado = fimContador + data.qtdRegistroPagina;
-			textoMostrando = "Página "+ currentPage+ " de "+ numeroPaginas+ " - Mostrando de "+inicioContador*1+" até "+fimContadorFormatado + " dos "+data.qtdTotalDeRegistros + " registros encontrados."
+			textoMostrando = "Página "+ currentPage+ "/"+ numeroPaginas+ " - Mostrando "+inicioContador*1+"/"+fimContadorFormatado + " de "+data.qtdTotalDeRegistros + " registro(s)."
 			$('#example_info').html("");
 			$('#example_info').html(textoMostrando);
 			 
@@ -470,8 +485,7 @@ $(document).ready(function() {
 						$('#anterior').attr( "onclick", ajaxAnterior);
 					}
 					
-					// Paginas que serão fixas
-					if(i < 2){
+					if(i == 1 && data.qtdTotalDeRegistros > offset){
 					$('#botoes').append(
 							'<button class="mdl-button paginaNaoInicial" type="button" id="'+i+'" onclick="ajaxDataTable('+i+')" aria-controls="example">'+paginaAtual+'</button>'		
 					);
@@ -515,8 +529,15 @@ $(document).ready(function() {
 				
 				// Utilizado na paginação
 				pagineAtual = pagina;
+				
+					} 
+					
+					
 				});		
 			}
+	
+	
+
 
 		// Chamada da função executável
 			ajaxDataTable();

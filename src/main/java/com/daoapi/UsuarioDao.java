@@ -6,11 +6,12 @@ import java.util.Map;
 
 import com.dtos.DtoRetornoPaginado;
 import com.dtos.DtoUsuarioPaginado;
+import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 
 public interface UsuarioDao {
 
-	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto);
 
 	Usuario getObj(Integer id, String login, String senha) throws NoSuchAlgorithmException;
 

@@ -6,6 +6,24 @@ public class DtoUsuarioPesquisa {
 	public String nome;
 	public String login;
 	public String email;
+	public String colunaParaOrdenar;
+	public Integer ativo;
+
+	public Integer getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Integer ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getColunaParaOrdenar() {
+		return colunaParaOrdenar;
+	}
+
+	public void setColunaParaOrdenar(String colunaParaOrdenar) {
+		this.colunaParaOrdenar = colunaParaOrdenar;
+	}
 
 	public Integer getCod() {
 		return cod;

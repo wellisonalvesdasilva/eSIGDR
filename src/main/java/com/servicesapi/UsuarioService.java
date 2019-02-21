@@ -11,7 +11,7 @@ import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 
 public interface UsuarioService {
-	public DtoRetornoPaginado<Usuario> list(Integer pagina, String colunaParaOrdenar);
+	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto);
 
 	public boolean saveOrUpdate(Usuario users)
 			throws NoSuchAlgorithmException, IllegalAccessException, InvocationTargetException;

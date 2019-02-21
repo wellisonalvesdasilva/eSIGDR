@@ -64,9 +64,9 @@ public class UsuarioController {
 
 	@RequestMapping(value = "/listar/{pagina}", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina,
-			@RequestBody(required = false) String colunaParaOrdenar) {
+			@RequestBody DtoUsuarioPesquisa dto) {
 
-		return _usuarioService.list(pagina, colunaParaOrdenar);
+		return _usuarioService.list(pagina,dto);
 
 	}
 
