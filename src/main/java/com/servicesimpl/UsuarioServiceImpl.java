@@ -6,25 +6,32 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
 import com.daoapi.UsuarioDao;
+import com.dtoREL.UsuarioREL;
 import com.dtos.DtoRetornoPaginado;
-import com.dtos.DtoUsuarioPaginado;
 import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	UsuarioDao _userDao;
+
+	@SuppressWarnings("unchecked")
+	public void exportPdfFile() throws Exception {
+		UsuarioREL novo = new UsuarioREL();
+		Object retornoBanco = _userDao.lista();
+		novo.imprimir((List<Usuario>) retornoBanco);
+	}
 
 	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto) {
 		DtoRetornoPaginado<Usuario> retorno = _userDao.list(pagina, dto);

@@ -65,18 +65,28 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6"></div>
-								<div class="col-md-6 text-right">
-									<button name="btnSubmit" id="btnSubmit" onclick="pesquisar()"
-										type="button" rel="tooltip" data-original-title="Pesquisar"
-										class="btn btn-info btn-fill">
-										<i class="nc-icon nc-zoom-split"></i> Pesquisar
-									</button>
+								<div class="col-md-5"></div>
+								<div class="col-md-7 text-right">
 									<button name="btnLimpar" rel="tooltip"
 										data-original-title="Limpar Campos e Pesquisa" id="btnLimpar"
-										type="button" onclick="limpar()" class="btn btn-info btn-fill">
+										type="button" onclick="limpar()"
+										class="btn btn-default btn-fill">
 										<i class="nc-icon nc-refresh-02"></i> Limpar
 									</button>
+
+									<button name="btnSubmit" id="btnSubmit" onclick="pesquisar()"
+										type="button" rel="tooltip" data-original-title="Pesquisar"
+										class="btn btn-primary btn-fill">
+										<i class="nc-icon nc-zoom-split"></i> Pesquisar
+									</button>
+
+
+									<button name="exportToPdf" id="exportToPdf" type="button"
+										rel="tooltip" data-original-title="Exportar para PDF"
+										class="btn btn-danger btn-fill">
+										<i class="nc-icon nc-cloud-download-93"></i> Exportar para PDF
+									</button>
+
 									<a name="btnSubmit" rel="tooltip"
 										data-original-title="Cadastrar Novo Usuário" id="btnSubmit"
 										href='/e-SIGDR/home/usuario/cadastrar' type="submit"
@@ -295,7 +305,6 @@
 			setTimeout(function() {
 				location.reload();
 			}, 1000);
-
 		}).fail(function(data) {
 			$('.loader').hide();
 			showNotification('top', 'right', 'Erro ao excluir o registro!');
@@ -306,9 +315,31 @@
 		});
 	});
 
+	// Evento Exportar para PDF
+	$('#exportToPdf')
+			.click(
+					function() {
+						$
+								.ajax({
+									url : 'export',
+									type : 'POST'
+
+								})
+								.done(
+										function(data) {
+											showNotification('top', 'right',
+													"PDF Exportado com sucesso! Verifique a pasta C://!");
+										});
+					});
+
+	
+	// Preparar Datatable
 	function dataTable() {
 
-		$('#example').DataTable({
+		return $('#example').DataTable({
+			
+			retrieve: true,
+			 
 			columnDefs : [ {
 				"width" : "18%",
 				"targets" : 0,
@@ -350,7 +381,7 @@
 		} else {
 			colunaParaOrdenarAsc = colunaParaOrdenarDesc;
 		}
-		ajaxDataTable(pagineAtual, colunaParaOrdenarAsc);
+		carregarDataTables(pagineAtual, colunaParaOrdenarAsc);
 	}
 
 	// Pesquisar
@@ -361,12 +392,11 @@
 		dto.login = $('#login').val();
 		dto.ativo = $('#ativo').val();
 		dto.email = $('#email').val();
-		ajaxDataTable();
+		carregarDataTables();
 	}
 
 	// Construção das linhas da grid
-	function ajaxDataTable(pagina, colunaParaOrdenar) {
-
+	function carregarDataTables(pagina, colunaParaOrdenar) {
 		// Definindo tamanho esperado pelo Front
 		var offset = 10;
 
@@ -391,11 +421,9 @@
 				})
 				.done(
 						function(data) {
-							var t = $('#example').DataTable();
-							//t.destroy();
+							var t = dataTable();
 							t.clear();
-							//					dataTable();
-							if (data.lista.length > 0) {
+						if (data.lista.length > 0) {
 								data.lista.forEach(function(valor) {
 									//Carregando o datatables
 									t.row.add(
@@ -447,20 +475,20 @@
 										+ " de " + numeroPaginas
 										+ " - Mostrando " + inicioContador * 1
 										+ " de " + fimContadorFormatado
-										+ " dos " + data.qtdTotalDeRegistros
-										+ " registro(s) encontrado(s)."
+										+ " de " + data.qtdTotalDeRegistros
+										+ "."
 								$('#example_info').html("");
 								$('#example_info').html(textoMostrando);
 
-								// Montando Paginação chumbando a página 1, opção [Próximo e Último]
+								// Montando Paginação chumbando a página 1, opção [Próxima e Última]
 								var ultimaPagina = data.numeroPaginas - 1;
 								$('#example_paginate').html("");
 								$('#example_paginate')
 										.append(
-												'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="ajaxDataTable(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próximo</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="ajaxDataTable('
+												'<div class="pagination"><button id="anterior" class="mdl-button previous" aria-controls="example" disabled="disabled">Anterior</button><button id="0" onclick="carregarDataTables(0)"  class="mdl-button  mdl-button--raised mdl-button--colored" aria-controls="example">1</button><div id="menosPagina"></div><div id="botoes"></div><div id="botoes2"></div><div id="maisPagina"></div><div id="botoesAdicionais"></div><div><button id="proximo" class="mdl-button next" aria-controls="example" disabled="disabled">Próxima</button></div><button class="mdl-button" disabled="disabled" id="ultimaPagina" onclick="carregarDataTables('
 														+ ultimaPagina
-														+ ')" type="button">Último</button></div>');
-
+														+ ')" type="button">Última</button></div>');
+					
 								// Percorrendo o numero retornado pelo back para criação das próximas páginas dinamicamente
 								var i = 1;
 								while (i <= data.numeroPaginas) {
@@ -468,25 +496,26 @@
 									var proximaPagina = pagina + 1;
 									var paginaAnterior = pagina - 1;
 
-									// Páginas que serão atualizadas utilizando de uma mesma posição
+									// Páginas que serão atualizadas utilizando de uma mesma posição - da 3 em diante
 									if (i > 1 && i < data.numeroPaginas) {
 										if (pagina >= 2
 												&& i + 1 == proximaPagina) {
-											$('#botoes2')
+											
+											$('#botoesAdicionais')
 													.append(
-															'<button class="mdl-button paginaNaoInicial" type="button" id="'
+															'</button><button class="mdl-button paginaNaoInicial" type="button" id="'
 																	+ i
-																	+ '" onclick="ajaxDataTable('
+																	+ '" onclick="carregarDataTables('
 																	+ i
 																	+ ')" aria-controls="example">'
 																	+ paginaAtual
-																	+ '</button>');
+																	);
 										}
 									}
 
-									// Atualizando o parâmetro da opção Próximo
+									// Atualizando o parâmetro da opção Próxima
 									if (pagina < data.numeroPaginas - 1) {
-										var ajaxProximo = 'ajaxDataTable('
+										var ajaxProximo = 'carregarDataTables('
 												+ proximaPagina + ')';
 										$('#proximo').removeAttr("disabled");
 										$('#proximo').attr("onclick",
@@ -495,20 +524,20 @@
 
 									// Atualizando o parâmetro da opção Anterior
 									if (pagina >= 1) {
-										var ajaxAnterior = 'ajaxDataTable('
+										var ajaxAnterior = 'carregarDataTables('
 												+ paginaAnterior + ')';
 										$('#anterior').removeAttr("disabled");
 										$('#anterior').attr("onclick",
 												ajaxAnterior);
 									}
 
-									if (i == 1
-											&& data.qtdTotalDeRegistros > offset) {
+									// Inserindo página 2
+									if (i < 2 && data.qtdTotalDeRegistros > offset) {
 										$('#botoes')
 												.append(
 														'<button class="mdl-button paginaNaoInicial" type="button" id="'
 																+ i
-																+ '" onclick="ajaxDataTable('
+																+ '" onclick="carregarDataTables('
 																+ i
 																+ ')" aria-controls="example">'
 																+ paginaAtual
@@ -535,7 +564,7 @@
 														"mdl-button--raised mdl-button--colored");
 									}
 
-									// Desabilitando a opção [Último], quando assim é o caso
+									// Desabilitando a opção [Última], quando assim é o caso
 									if (pagina != ultimaPagina) {
 										$('#ultimaPagina').removeAttr(
 												"disabled");
@@ -545,37 +574,21 @@
 									i++;
 								}
 
-								// Inserindo indicação de que a mais página a ser visualizada na opção [Próximo]
-								if (data.lista.length > 1
-										&& pagina < ultimaPagina) {
-									$('#maisPagina')
-											.append(
-													'<button class="mdl-button" type="button" id="continue" aria-controls="example">...</button>');
-								}
-
-								// Inserindo indicação de que a mais página a ser visualizada na opção [Anterior]
-								if (pagina > 1) {
-									$('#menosPagina')
-											.append(
-													'<button class="mdl-button" type="button" id="voltar" aria-controls="example">...</button>');
-								}
-
 								// Utilizado na paginação
 								pagineAtual = pagina;
-								
+
 								// Caso nenhum registro tenha sido encontrado
+								
 							} else {
-								// Destroy para aparesentar mensagem com "Nenhum registro encontrado"
+								// Caso Nenhum Registro Encontrado
 								t.destroy();
 								dataTable();
 							}
-							
-							
 						});
 	}
 
 	// Chamada da função executável
-	ajaxDataTable();
+	carregarDataTables();
 </script>
 </body>
 </html>

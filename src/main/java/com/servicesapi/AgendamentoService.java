@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.entities.Agendamento;
-import com.entities.Agendamento;
 
 public interface AgendamentoService {
 	List<Agendamento> list(Map<String, String> objPesquisa);

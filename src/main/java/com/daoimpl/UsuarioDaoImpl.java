@@ -1,16 +1,41 @@
 package com.daoimpl;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import org.hibernate.SessionFactory;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+
 import com.daoapi.UsuarioDao;
 import com.dtos.DtoRetornoPaginado;
 import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
+import com.mysql.jdbc.Connection;
 
 @Repository
 @Transactional
@@ -18,6 +43,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Autowired
 	SessionFactory session;
+
+	@SuppressWarnings("unchecked")
+	public List<Usuario> lista() {
+		return session.getCurrentSession().createQuery("from Usuario").list();
+	}
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	public DtoRetornoPaginado<Usuario> list(Integer pagina, DtoUsuarioPesquisa dto) {

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.entities.Alimento;
-import com.entities.Alimento;
 
 public interface AlimentoService {
 	List<Alimento> list(Map<String, String> objPesquisa);

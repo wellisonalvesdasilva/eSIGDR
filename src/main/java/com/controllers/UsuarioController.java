@@ -1,25 +1,22 @@
 package com.controllers;
 
+import java.io.OutputStream;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.List;
 import java.util.Locale;
-
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +45,8 @@ import com.dtos.DtoUsuarioPesquisa;
 import com.entities.Usuario;
 import com.servicesapi.UsuarioService;
 
+import net.sf.jasperreports.engine.JasperPrint;
+
 @Controller
 @RequestMapping("/home/usuario")
 @SessionAttributes("roles")
@@ -66,9 +65,7 @@ public class UsuarioController {
 	public @ResponseBody DtoRetornoPaginado<Usuario> listar(@PathVariable("pagina") Integer pagina,
 			@RequestBody DtoUsuarioPesquisa dto) {
 
-		
-		return _usuarioService.list(pagina,dto);
-	
+		return _usuarioService.list(pagina, dto);
 
 	}
 
@@ -122,4 +119,14 @@ public class UsuarioController {
 		}
 	}
 
+	@RequestMapping(value = "/export", method = RequestMethod.POST)
+	public void export(ModelAndView model, HttpServletResponse response, RedirectAttributes ra) throws Exception {
+
+		try {
+			_usuarioService.exportPdfFile();
+
+		} catch (Exception e) {
+			System.out.println("Erro ao Exportar PDF!");
+		}
+	}
 }
