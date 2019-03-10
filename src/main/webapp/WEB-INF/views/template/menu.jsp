@@ -1,5 +1,6 @@
 <body>
 	<div class="wrapper">
+	
 		<div class="sidebar"
 			data-image="${pageContext.request.contextPath}/resources/img/sidebar-5.jpg">
 			<div class="sidebar-wrapper">
